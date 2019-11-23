@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Title</title>
+    <th:block th:insert="~{fragments/staticImports :: headImports}"> </th:block>
+</head>
+<body th:with="findTrainParameters=@{(goingTo=${param.goingTo},departureDate=${param.departureDate}, departureTime=${param.departureTime})}">
+    <!-- HEADER -->
+    <div th:replace="fragments/header :: header"></div>
+    <!-- HEADER -->
+
+    <div class="container float-left ml-3 mt-5 pt-4"> <!-- MAIN CONTENT -->
+        <div class="row justify">
+            <form method="POST"  action="#" th:action="@{/trains/find/}">
+                <div class="row">
+                    <div class="col-3"> <!--GOING_TO-->
+                        <div class="form-group">
+                            <label for="usertype" th:text="#{going.to}"></label>
+                            <select class="form-control" id="usertype" name="goingTo">
+                                <option th:each="station : ${session.stations}" th:value="${station.id}" selected th:text="station.${station.id}"></option>
+                            </select>
+                        </div>
+                    </div> <!--GOING_TO-->
+
+                    <div class="col-3"> <!--DATE-->
+                        <div class="form-group">
+                            <label for="dateInput" th:text="#{departure.date}"></label>
+                            <div class="input-group date" id="datetimepicker4" data-target-input="nearest">
+                                <input type="text" id="dateInput" class="form-control datetimepicker-input" data-target="#datetimepicker4" name="${Parameters.DEPARTURE_DATE}"/>
+                                <div class="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!--DATE-->
+
+                    <div class="col-3"> <!--TIME-->
+                        <div class="form-group">
+                            <label for="timeInput" th:text="#{departure.time}"></label>
+                            <div class="input-group date" id="datetimepicker3" data-target-input="nearest">
+                                <input type="text" id = "timeInput" class="form-control datetimepicker-input" data-target="#datetimepicker3" name="${Parameters.DEPARTURE_TIME}"/>
+                                <div class="input-group-append" data-target="#datetimepicker3" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--TIME-->
+
+                    <div class="col-3">
+                        <br/>
+                        <button type="submit" class="btn btn-primary mt-2" data-dismiss="modal" th:text="#{find.train.btn}"></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div id="elementsAmountSelect" class="row"> <!--PAGE_SIZE-->
+            <div class="col-md-10"></div>
+            <div class="col-md-2">
+                <div class="dropdown show">
+                    <a class="dropdown-toggle nav-link" href="#" id="pageSizeDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        [[#{sent.reports.page.size}]]
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="pageSizeDropdown">
+                        <a class="dropdown-item" th:href="@{/trains/find(pageSize=3, goingTo=${param.goingTo},departureDate=${param.departureDate},departureTime=${param.departureTime})}"> 3 </a>
+                        <a class="dropdown-item" th:href="@{/trains/find(pageSize=5, goingTo=${param.goingTo},departureDate=${param.departureDate},departureTime=${param.departureTime})}"> 5 </a>
+                        <a class="dropdown-item" th:href="@{/trains/find(pageSize=10,goingTo=${param.goingTo},departureDate=${param.departureDate},departureTime=${param.departureTime})}"> 10 </a>
+                    </div>
+                </div>
+            </div>
+        </div> <!--PAGE_SIZE-->
+
+        <div style="border: #0b2e13" class="row"><!--TABLE-->
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col" th:text="#{table.header.train}"></th>
+                    <th scope="col" th:text="#{table.header.route}"></th>
+                    <th scope="col" th:text="#{table.header.date}"></th>
+                    <th scope="col" th:text="#{table.header.time}"></th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <th:block th:if="${session.model != null}">
+                    <tr class="table-row clickable-row" th:href="@{/trains/booking(trainId=${train.trainId})}" th:each="train : ${session.model.pageList}">
+                        <td>${train.trainId} ${train.trainType}</td>
+                        <td>
+                            <span th:with="stations=${#strings.concat(train.stations)}"></span>
+                            <button type="button" class="btn btn-link example-popover" data-toggle="popover" title="${route}" th:attr="data-content=${stations},title=#{table.header.route}">${train.routeName}</button>
+                        </td>
+                        <td>${train.routeDepartureDate} <br> ${train.routeArrivalDate}</td>
+                        <td>${train.routeDepartureTime} <br> ${train.routeArrivalTime}</td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+        </div> <!--TABLE-->
+
+<!--        <th:block th:if="${session.model != null and session.model.allPagesAmount > 1}"> &lt;!&ndash;PAGINATION&ndash;&gt;-->
+            <div class="row mt-4">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <nav aria-label="...">
+                        <ul class="pagination" style="list-style-type: none;">
+                            <div class="container-fluid">
+                                <div class="btn-group">
+                                    <li th:class="${session?.model?.isLeftButtonDisabled} ? 'page-item disabled' : 'page-item'">
+                                        <a class="page-link" th:href="@{/trains/find(prevPageClick=true, pageSize=${session?.model?.pageSize}, goingTo=${param.goingTo},departureDate=${param.departureDate}, departureTime=${param.departureTime})}" th:text="#{pagination.previous}"></a>
+                                    </li>
+
+                                    <li th:each="i : ${#numbers.sequence(1, 3)}" th:class="(${session?.model?.currentPageIndex} eq i) ? 'page-item active' : 'page-item'">
+                                        <a class="page-link" th:href="@{/trains/find(pageIndex=${i}, pageSize=${session?.model?.pageSize}, goingTo=${param.goingTo},departureDate=${param.departureDate}, departureTime=${param.departureTime})}" th:text="${i}"> </a>
+                                    </li>
+
+                                    <li th:class="${session?.model?.isRightButtonDisabled} ? 'page-item disabled' : 'page-item'">
+                                        <a class="page-link" th:href="@{/trains/find(nextPageClick=true, pageSize=${session?.model?.pageSize}, goingTo=${param.goingTo},departureDate=${param.departureDate}, departureTime=${param.departureTime})}" th:text="#{pagination.next}"></a>
+                                    </li>
+                                </div>
+                            </div>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+<!--        </th:block> &lt;!&ndash;PAGINATION&ndash;&gt;-->
+    </div> <!-- MAIN CONTENT -->
+
+    <!-- FOOTER -->
+    <div th:replace="fragments/footer :: footer"></div>
+    <!-- FOOTER -->
+    <th:block th:insert="~{fragments/staticImports :: scriptImports}"> </th:block>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+</body>
+</html>

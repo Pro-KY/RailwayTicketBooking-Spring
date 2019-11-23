@@ -17,7 +17,7 @@
                         <div class="form-group">
                             <label for="usertype" th:text="#{going.to}"></label>
                             <select class="form-control" id="usertype" name="goingTo">
-                                <option th:each="station : ${session.stations}" th:value="${station.id}" selected th:text="station.${station.id}"></option>
+                                <option th:each="station : ${session.stations}" th:value="${station.id}" selected th:text="#{${#strings.concat('station.', station.id)}}"></option>
                             </select>
                         </div>
                     </div> <!--GOING_TO-->

@@ -6,6 +6,9 @@ import org.springframework.util.ResourceUtils;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 @Configuration
+@PropertySources({
+        @PropertySource("classpath:view.properties")
+})
 public class ApplicationConfiguration {
 
 }

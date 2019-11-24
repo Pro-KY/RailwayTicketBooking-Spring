@@ -26,6 +26,7 @@ public class MainController {
     public String indexPage(Model model) {
         final List<Station> allStations = stationService.findAllStations();
         model.addAttribute(Attributes.STATIONS, allStations);
+        log.info("index called");
         return viewProperties.getINDEX();
     }
 }

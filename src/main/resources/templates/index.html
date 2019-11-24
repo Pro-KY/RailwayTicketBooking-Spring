@@ -26,7 +26,7 @@
                         <div class="form-group">
                             <label for="dateInput" th:text="#{departure.date}"></label>
                             <div class="input-group date" id="datetimepicker4" data-target-input="nearest">
-                                <input type="text" id="dateInput" class="form-control datetimepicker-input" data-target="#datetimepicker4" name="${Parameters.DEPARTURE_DATE}"/>
+                                <input type="text" required id="dateInput" class="form-control datetimepicker-input" data-target="#datetimepicker4" name="departureDate"/>
                                 <div class="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                 </div>
@@ -38,7 +38,7 @@
                         <div class="form-group">
                             <label for="timeInput" th:text="#{departure.time}"></label>
                             <div class="input-group date" id="datetimepicker3" data-target-input="nearest">
-                                <input type="text" id = "timeInput" class="form-control datetimepicker-input" data-target="#datetimepicker3" name="${Parameters.DEPARTURE_TIME}"/>
+                                <input type="text" required id = "timeInput" class="form-control datetimepicker-input" data-target="#datetimepicker3" name="departureTime"/>
                                 <div class="input-group-append" data-target="#datetimepicker3" data-toggle="datetimepicker">
                                     <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
                                 </div>

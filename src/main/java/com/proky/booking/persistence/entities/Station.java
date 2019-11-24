@@ -2,6 +2,8 @@ package com.proky.booking.persistence.entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,11 +14,12 @@ import java.util.Objects;
 @Table(name = "station", schema = "railway_ticket_booking")
 @Data
 @NoArgsConstructor
+@RequiredArgsConstructor
 public class Station {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @NonNull private Long id;
+
     @Column(name = "name")
     private String name;
 

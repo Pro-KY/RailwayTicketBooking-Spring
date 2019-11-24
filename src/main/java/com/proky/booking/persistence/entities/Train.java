@@ -20,5 +20,4 @@ public class Train {
 
     @OneToOne
     private Route route;
-
 }

@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
-@Table(name = "train_type", schema = "railway_ticket_booking")
+@Table(name = "train_type", schema = "railway_ticket_booking_spring")
 @Data
 @NoArgsConstructor
 public class TrainType {

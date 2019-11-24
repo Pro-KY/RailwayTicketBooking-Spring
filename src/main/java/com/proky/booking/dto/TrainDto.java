@@ -1,8 +1,6 @@
 package com.proky.booking.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -19,7 +17,11 @@ public class TrainDto implements Serializable {
     private BigDecimal trainSeatPrice;
 
     private Long routeId;
-    private String routeName;
+//    private String routeName;
+
+    String departureStationName;
+    String arrivalStationName;
+
     private Date routeDepartureDate;
     private Date routeArrivalDate;
     private Time routeDepartureTime;
@@ -27,4 +29,6 @@ public class TrainDto implements Serializable {
     private Double routeLengthFactor;
 
     private List<StationDto> stations;
+
+
 }

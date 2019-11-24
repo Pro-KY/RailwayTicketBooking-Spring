@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "user_type", schema = "railway_ticket_booking")
+@Table(name = "user_type", schema = "railway_ticket_booking_spring")
 public class UserType {
     private Long id;
     private String type;

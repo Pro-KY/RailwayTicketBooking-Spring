@@ -1,8 +1,6 @@
 package com.proky.booking.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,14 +10,13 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PageDto implements Serializable {
-    private static final long DEFAULT_START_INDEX = 0;
+    private Integer currentPageIndex = 0;
+    private Integer pageSize = 3;
 
-    private Long currentPageIndex = DEFAULT_START_INDEX;
-    private Boolean isNextClicked;
-    private Boolean isPreviousClicked;
-    private String pageSize;
-    private boolean isLeftButtonDisabled;
-    private boolean isRightButtonDisabled;
+    private Boolean isNextClicked = false;
+    private Boolean isPreviousClicked = false;
+    private Boolean isLeftButtonDisabled = false;
+    private Boolean isRightButtonDisabled = false;
     private Long startPageIndex;
     private Long endPageIndex;
     private long allPagesAmount;

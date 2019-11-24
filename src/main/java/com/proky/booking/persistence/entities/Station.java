@@ -1,9 +1,6 @@
 package com.proky.booking.persistence.entities;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,31 +8,50 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "station", schema = "railway_ticket_booking")
-@Data
+@Table(name = "station", schema = "railway_ticket_booking_spring")
 @NoArgsConstructor
 @RequiredArgsConstructor
+@Getter
+@Setter
 public class Station {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NonNull private Long id;
 
     @Column(name = "name")
-    private String name;
+    @NonNull private String name;
 
-    @OneToMany(
-            mappedBy = "route",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    private List<RouteStation> routes = new ArrayList<>();
+    @ManyToMany(mappedBy = "stations")
+    private List<Route> routes = new ArrayList<>();
 
 
-    public List<RouteStation> getRoutes() {
+    public List<Route> getRoutes() {
         return routes;
     }
 
-    public void setRoutes(List<RouteStation> routes) {
+    public void setRoutes(List<Route> routes) {
         this.routes = routes;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Station station = (Station) o;
+        return Objects.equals(id, station.id) &&
+                Objects.equals(name, station.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
+    }
+
+    @Override
+    public String toString() {
+        return "Station{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

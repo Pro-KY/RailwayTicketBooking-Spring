@@ -1,15 +1,3 @@
-$(function () {
-    $('#datetimepicker3').datetimepicker({
-        format: 'LT'
-    });
-});
-
-$(function () {
-    $('#datetimepicker4').datetimepicker({
-        format: 'L'
-    });
-});
-
 $('#myModal').on('show.bs.modal', function (e) {
     console.log(this);
     let stations = $(e.relatedTarget).data('stations');
@@ -24,5 +12,22 @@ $(document).ready(function($) {
 });
 
 $('.example-popover').popover({
+    // trigger: 'focus'
+    trigger: 'hover'
+});
+
+$(function () {
+    $('#datetimepicker3').datetimepicker({
+        format: 'LT'
+    });
+});
+
+$(function () {
+    $('#datetimepicker4').datetimepicker({
+        format: 'L'
+    });
+});
+
+$('.popover-dismiss').popover({
     trigger: 'focus'
 });

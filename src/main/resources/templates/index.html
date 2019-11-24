@@ -84,13 +84,19 @@
 
                 <th:block th:if="${session.model != null}">
                     <tr class="table-row clickable-row" th:href="@{/trains/booking(trainId=${train.trainId})}" th:each="train : ${session.model.pageList}">
-                        <td>${train.trainId} ${train.trainType}</td>
+                        <td th:text="${train.trainId} + ' ' + ${train.trainType}"> </td>
                         <td>
-                            <span th:with="stations=${#strings.concat(train.stations)}"></span>
-                            <button type="button" class="btn btn-link example-popover" data-toggle="popover" title="${route}" th:attr="data-content=${stations},title=#{table.header.route}">${train.routeName}</button>
+                            <button type="button" class="btn btn-link example-popover p-0 routeName" data-trigger="hover" data-toggle="popover" th:attr="data-content=${stations2}, title=#{table.header.route}" th:text="${#strings.concat(train.departureStationName,' - ',train.arrivalStationName)}"></button>
+                            <p class="m-0 routes">
+                                <th:block th:each="station : ${train.stations}">
+                                    <span th:text="${#messages.msg(#strings.concat('station.', station.stationId))}"></span>
+                                </th:block>
+                            </p>
                         </td>
-                        <td>${train.routeDepartureDate} <br> ${train.routeArrivalDate}</td>
-                        <td>${train.routeDepartureTime} <br> ${train.routeArrivalTime}</td>
+                        <td> <span th:text="${train.routeDepartureDate}"></span> <br> <span th:text="${train.routeArrivalDate}"></span></td>
+                        <td>
+                            <span th:text="${train.routeDepartureTime}"></span> <br> <span th:text="${train.routeArrivalTime}"></span>
+                        </td>
                     </tr>
                 </th:block>
                 </tbody>
@@ -122,6 +128,7 @@
                     </nav>
                 </div>
             </div>
+
 <!--        </th:block> &lt;!&ndash;PAGINATION&ndash;&gt;-->
     </div> <!-- MAIN CONTENT -->
 

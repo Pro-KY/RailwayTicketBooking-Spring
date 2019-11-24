@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "user", schema = "railway_ticket_booking")
+@Table(name = "user", schema = "railway_ticket_booking_spring")
 @Data
 @NoArgsConstructor
 public class User {

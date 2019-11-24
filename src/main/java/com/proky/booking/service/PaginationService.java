@@ -1,24 +1,19 @@
 package com.proky.booking.service;
 
 import com.proky.booking.dto.PageDto;
-import com.proky.booking.util.constans.http.Attributes;
-import lombok.ToString;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.stereotype.Service;
-
-import javax.servlet.http.HttpSession;
 
 //@ToString
 public class PaginationService {
-    private long pageSize;
-    private long offSet = 0;
+    private int pageSize;
+//    private long offSet = 0;
     private long startVisibleIndex;
     private long endVisibleIndex;
-    private long currentPageIndex;
+    private int currentPageIndex;
 
-    private long allRowsAmount;
-    private long allPagesAmount;
+//    private long allRowsAmount;
+    private int allPagesAmount;
 
     private static final int DEFAULT_PAGE_SIZE = 3; // 5
     private static final int DEFAULT_START_INDEX = 0;
@@ -32,6 +27,10 @@ public class PaginationService {
         return pageDto;
     }
 
+    public void setPageDto(PageDto pageDto) {
+        this.pageDto = pageDto;
+    }
+
     private static final Logger log = LogManager.getLogger(PaginationService.class);
 
     public PaginationService() { }
@@ -43,24 +42,24 @@ public class PaginationService {
     public void calculatePagination() {
         final Long startVisibleIndex = pageDto.getStartPageIndex();
         final Long endVisibleIndex = pageDto.getEndPageIndex();
-        final Long currentPageIndex = pageDto.getCurrentPageIndex();
+        final Integer currentPageIndex = pageDto.getCurrentPageIndex();
 
         this.startVisibleIndex = (startVisibleIndex != null) ? startVisibleIndex : DEFAULT_START_INDEX;
         this.endVisibleIndex = (endVisibleIndex != null) ? endVisibleIndex : DEFAULT_END_INDEX;
-        this.currentPageIndex = (currentPageIndex != null) ? (Long) currentPageIndex : DEFAULT_START_INDEX;
-        final String pageSize = pageDto.getPageSize();
-        this.pageSize = (pageSize != null) ? Integer.parseInt(pageSize) : DEFAULT_PAGE_SIZE;
+        this.currentPageIndex = (currentPageIndex != null) ? currentPageIndex : DEFAULT_START_INDEX;
+        final Integer pageSize = pageDto.getPageSize();
+        this.pageSize = (pageSize != null) ? pageDto.getPageSize() : DEFAULT_PAGE_SIZE;
 
-        calculateAllPagesAmount();
-        calculateEndVisibleIndex();
-        changeButtonsState();
+//        calculateEndVisibleIndex();
+//        changeButtonsState();
 
         if (pageDto.getIsNextClicked()) {
             handleNextButtonClick();
         } else if (pageDto.getIsPreviousClicked()) {
             handlePreviousButtonClick();
         } else {
-            calculateOffset();
+            System.out.println("dummy calculateOffset");
+//            calculateOffset();
         }
     }
 
@@ -68,23 +67,16 @@ public class PaginationService {
         pageDto.setCurrentPageIndex(currentPageIndex);
         pageDto.setStartPageIndex(startVisibleIndex);
         pageDto.setEndPageIndex(endVisibleIndex);
-        pageDto.setLeftButtonDisabled(isLeftButtonDisabled);
-        pageDto.setRightButtonDisabled(isRightButtonDisabled);
+        pageDto.setIsLeftButtonDisabled(isLeftButtonDisabled);
+        pageDto.setIsRightButtonDisabled(isRightButtonDisabled);
         pageDto.setAllPagesAmount(allPagesAmount);
-        pageDto.setPageSize(String.valueOf(pageSize));
+        pageDto.setPageSize(pageSize);
     }
 
-    public void setAllRowsAmount(long allRowsAmount) {
-        this.allRowsAmount = allRowsAmount;
-    }
+//    public void setAllRowsAmount(long allRowsAmount) {
+//        this.allRowsAmount = allRowsAmount;
+//    }
 
-
-    public void calculateAllPagesAmount() {
-        allPagesAmount = allRowsAmount / this.pageSize;
-        log.info("exp: {}", allPagesAmount % this.pageSize);
-//        allPagesAmount += allPagesAmount % this.pageSize > 0 ? 1 : 0;
-        allPagesAmount += allRowsAmount % this.pageSize > 0 ? 1 : 0;
-    }
 
     public void calculateEndVisibleIndex() {
         log.info("endVisibleIndex before - {}", endVisibleIndex);
@@ -98,10 +90,9 @@ public class PaginationService {
         log.info("endVisibleIndex after - {}", endVisibleIndex);
     }
 
-    // 3
-    public void calculateOffset() { // 2
-        offSet = currentPageIndex * pageSize;
-    }
+//    public void calculateOffset() {
+//        offSet = currentPageIndex * pageSize;
+//    }
 
     public void handleNextButtonClick() {
         if (currentPageIndex < endVisibleIndex) {
@@ -110,7 +101,7 @@ public class PaginationService {
             shiftPagesIndexes(true);
         }
         changeButtonsState();
-        calculateOffset();
+//        calculateOffset();
     }
 
     public void handlePreviousButtonClick() {
@@ -120,7 +111,7 @@ public class PaginationService {
             shiftPagesIndexes(false);
         }
         changeButtonsState();
-        calculateOffset();
+//        calculateOffset();
     }
 
     public void changeButtonsState() {
@@ -142,15 +133,11 @@ public class PaginationService {
         return pageSize;
     }
 
-    public long getOffSet() {
-        return offSet;
-    }
+//    public long getOffSet() {
+//        return offSet;
+//    }
 
-    public static PageDto getCurrentPageDto(HttpSession session) {
-        PageDto currentPageDto = (PageDto) session.getAttribute(Attributes.MODEL);
-        if (currentPageDto == null) {
-            currentPageDto = new PageDto();
-        }
-        return currentPageDto;
+    public void setAllPagesAmount(int allPagesAmount) {
+        this.allPagesAmount = allPagesAmount;
     }
 }

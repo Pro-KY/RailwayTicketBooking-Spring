@@ -15,12 +15,12 @@ import org.springframework.web.servlet.view.RedirectView;
 @RequestMapping("/trains")
 @Controller
 @AllArgsConstructor
-@SessionAttributes(Attributes.PAGE_DTO)
+@SessionAttributes({Attributes.PAGE_DTO, Attributes.MODEL})
 public class TrainController {
     TrainService trainService;
 
     @PostMapping("/find")
-    public String findTrain(@RequestParam(name="goingTo") String goingTo,
+    public RedirectView findTrain(@RequestParam(name="goingTo") String goingTo,
                             @RequestParam(name="departureDate") String departureDate,
                             @RequestParam(name="departureTime") String departureTime,
                             @SessionAttribute(required = false) PageDto pageDto,
@@ -30,17 +30,20 @@ public class TrainController {
         log.info("pageDto {}", pageDto);
 
         final PageDto trains = trainService.findTrains(pageDto, departureDate, departureTime, goingTo);
+        log.info("trains no null, {}", trains != null);
+        model.addAttribute(Attributes.MODEL, trains);
 
         log.info("POST findTrain is called");
-        log.info(goingTo);
-        log.info(departureDate);
-        log.info(departureTime);
+//        log.info(goingTo);
+//        log.info(departureDate);
+//        log.info(departureTime);
 
-        return "index";
+//        return "index";
+        return new RedirectView("/index");
     }
 
     @GetMapping("/find")
-    public RedirectView findTrain(@RequestParam(name="pageSize") String pageSize,
+    public RedirectView findTrain(@RequestParam(name="pageSize") Integer pageSize,
                             @RequestParam(name="prevPageClick", required = false) Boolean prevPageClick,
                             @RequestParam(name="nextPageClick", required = false) Boolean nextPageClick,
                             @RequestParam(name="goingTo") String goingTo,

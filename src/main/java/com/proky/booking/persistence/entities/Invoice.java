@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "invoice", schema = "railway_ticket_booking")
+@Table(name = "invoice", schema = "railway_ticket_booking_spring")
 @Data
 @NoArgsConstructor
 public class Invoice {

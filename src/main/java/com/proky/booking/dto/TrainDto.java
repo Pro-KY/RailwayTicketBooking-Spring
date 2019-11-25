@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TrainDto implements Serializable {
-    private Integer trainId;
+    private Long trainId;
     private String trainType;
     private BigDecimal trainSeatPrice;
 

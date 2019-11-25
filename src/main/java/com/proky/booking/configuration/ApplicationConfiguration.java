@@ -12,5 +12,9 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
         @PropertySource("classpath:view.properties")
 })
 public class ApplicationConfiguration {
-
+    @Bean
+    @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+    public PaginationService paginationService() {
+        return new PaginationService();
+    }
 }

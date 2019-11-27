@@ -18,8 +18,8 @@ import org.springframework.web.servlet.view.RedirectView;
 @AllArgsConstructor
 @SessionAttributes({Attributes.PAGE_DTO, Attributes.MODEL})
 public class TrainController {
-    ViewProperties viewProperties;
-    TrainService trainService;
+    private ViewProperties viewProperties;
+    private TrainService trainService;
 
     @PostMapping("/find")
     public RedirectView findTrain(@RequestParam(name="goingTo") String goingTo,
@@ -55,17 +55,17 @@ public class TrainController {
                             @SessionAttribute(name = Attributes.MODEL, required = false) PageDto pageDto,
                             Model model) {
 
-        log.info("==== GET findTrain called ==== ");
-
-        log.info("dto session: {}", pageDto.toString());
-
-        log.info("pageSize {}", pageSize);
-        log.info("goingTo {}", goingTo);
-        log.info("selectedPageIndex {}", selectedPageIndex);
-        log.info("departureDate {}", departureDate);
-        log.info("departureTime {}", departureTime);
-        log.info("prevPageClick {}", prevPageClick);
-        log.info("nextPageClick {}", nextPageClick);
+//        log.info("==== GET findTrain called ==== ");
+//
+//        log.info("dto session: {}", pageDto.toString());
+//
+//        log.info("pageSize {}", pageSize);
+//        log.info("goingTo {}", goingTo);
+//        log.info("selectedPageIndex {}", selectedPageIndex);
+//        log.info("departureDate {}", departureDate);
+//        log.info("departureTime {}", departureTime);
+//        log.info("prevPageClick {}", prevPageClick);
+//        log.info("nextPageClick {}", nextPageClick);
 
         pageDto.updatePageDtoValues(pageSize, prevPageClick, nextPageClick, selectedPageIndex);
         final PageDto trains = trainService.findTrains(pageDto, departureDate, departureTime, goingTo);

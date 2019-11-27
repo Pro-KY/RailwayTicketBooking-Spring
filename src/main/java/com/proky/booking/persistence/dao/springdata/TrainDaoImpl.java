@@ -21,7 +21,7 @@ public class TrainDaoImpl implements ITrainDao {
     private TrainRepository trainRepository;
 
     @Override
-    public Page<Train> findTrainsByDateAndTimeAndStation(Date departureDate, Time departureTime, Station station, Pageable pageable) {
+    public Page<Train> findAllByDepartureDateAndDepartureTimeAndStation(Date departureDate, Time departureTime, Station station, Pageable pageable) {
         return trainRepository.findAllByDepartureDateAndDepartureTimeAndStation(departureDate, departureTime, station, pageable);
     }
 

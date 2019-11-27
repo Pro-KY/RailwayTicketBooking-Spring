@@ -21,8 +21,7 @@ import javax.validation.constraints.NotBlank;
 @Controller
 @AllArgsConstructor
 public class UserController {
-    ViewProperties viewProperties;
-
+    private ViewProperties viewProperties;
 
     @PostMapping("/signIn")
     public RedirectView singIn(@RequestParam @NotBlank String email, @RequestParam @NotBlank String password) {

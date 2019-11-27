@@ -10,5 +10,5 @@ import java.sql.Time;
 import java.util.List;
 
 public interface ITrainDao extends IDao<Train> {
-    Page<Train> findTrainsByDateAndTimeAndStation(Date departureDate, Time departureTime, Station station, Pageable pageable);
+    Page<Train> findAllByDepartureDateAndDepartureTimeAndStation(Date departureDate, Time departureTime, Station station, Pageable pageable);
 }

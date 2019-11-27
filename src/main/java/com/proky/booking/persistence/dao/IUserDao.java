@@ -4,8 +4,8 @@ package com.proky.booking.persistence.dao;
 import com.proky.booking.persistence.entities.User;
 import com.proky.booking.persistence.entities.UserType;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
 

@@ -6,9 +6,9 @@ import com.proky.booking.persistence.entities.UserType;
 import com.proky.booking.persistence.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +24,7 @@ public class UserDaoImpl implements IUserDao {
 
     @Override
     public Page<User> findAllByType(UserType userType, Pageable pageable) {
-        return userRepository.findAllByUserType(userType);
+        return userRepository.findAllByUserType(userType, pageable);
     }
 
     @Override

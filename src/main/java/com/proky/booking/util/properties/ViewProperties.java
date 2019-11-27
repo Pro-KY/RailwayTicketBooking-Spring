@@ -11,7 +11,13 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 public class ViewProperties {
-    @Value("${INDEX}")
-    private String INDEX = "INDEX";
+    @Value("${index}")
+    private String indexPage;
+
+    @Value("${signIn}")
+    String signInPage;
+
+    @Value("${signUp}")
+    String signUpPage;
 
 }

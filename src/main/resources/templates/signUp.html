@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>SignIn</title>
+    <th:block th:insert="~{fragments/staticImports :: headImports}"> </th:block>
+</head>
+<body th:with="findTrainParameters=@{(goingTo=${param.goingTo},departureDate=${param.departureDate}, departureTime=${param.departureTime})}">
+    <!-- HEADER -->
+    <div th:replace="fragments/header :: header"></div>
+    <!-- HEADER -->
+
+    <div class="container pt-md-3 mt-5">
+        <div class="row justify-content-center">
+            <div class="col-sm-6 col-md-4">
+                <div class="card border-info">
+                    <div class="card-body">
+                        <form name="SignUpForm" method="POST" th:action="@{/user/signUp/}">
+
+                            <div class="form-group">
+                                <label class="ml-3" for="firstName" th:text="#{user.firstName}"></label>
+                                <input type="text" required class="form-control m-1" th:placeholder="#{user.firstName}" id="firstName" name="firstName">
+                            </div>
+                            <div class=" form-group">
+                                <label class="ml-3" for="lastName" th:text="#{user.lastName}"></label>
+                                <input type="text" required class="form-control m-1" th:placeholder="#{user.firstName}" id="lastName" name="lastName">
+                            </div>
+                            <div class=" form-group">
+                                <label class="ml-3" for="email" th:text="#{user.email}"></label>
+                                <input type="text" required class="form-control m-1" th:placeholder="#{user.email}" id="email" name="email">
+                            </div>
+                            <div class=" form-group">
+                                <label class="ml-3" for="password" th:text="#{user.password}"></label>
+                                <input type="password" required class="form-control m-1" th:placeholder="#{user.password}" id="password" name="password">
+                            </div>
+
+                            <div class="row justify-content-center">
+                                <button type="submit" class="btn btn-primary" th:text="#{sing.up}"></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div th:replace="fragments/footer :: footer"></div>
+    <!-- FOOTER -->
+    <th:block th:insert="~{fragments/staticImports :: scriptImports}"> </th:block>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+</body>
+</html>

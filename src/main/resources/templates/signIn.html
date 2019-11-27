@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>SignIn</title>
+    <th:block th:insert="~{fragments/staticImports :: headImports}"> </th:block>
+</head>
+<body>
+    <!-- HEADER -->
+    <div th:replace="fragments/header :: header"></div>
+    <!-- HEADER -->
+
+    <div class="container pt-md-5 mt-5">
+        <div class="row justify-content-sm-center">
+            <div class="col-sm-6 col-md-4">
+                <div class="card border-info">
+                    <div class="card-body">
+                        <form name="signIn" method="POST" th:action="@{/user/signIn/}">
+
+                            <div class="form-group">
+                                <label class="ml-3" for="inputEmail" th:text="#{user.email}"></label>
+                                <input type="email" required class="form-control" id="inputEmail" th:placeholder="#{user.email}" name="email">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="ml-3" for="inputPassword" th:text="#{user.email}"></label>
+                                <input type="password" required class="form-control" id="inputPassword" th:placeholder="#{user.password}" name="password">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary col-12" data-dismiss="modal" th:text="#{enter}"></button>
+                        </form>
+                        <div class="row justify-content-center">
+                            <div><span th:text="#{msg.signup}"></span> <a th:href="@{/signUpPage}" th:text="#{sing.up}"></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div th:replace="fragments/footer :: footer"></div>
+    <!-- FOOTER -->
+    <th:block th:insert="~{fragments/staticImports :: scriptImports}"> </th:block>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+</body>
+</html>

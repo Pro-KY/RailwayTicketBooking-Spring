@@ -70,24 +70,4 @@ public class Route {
                 ", routeLengthFactor=" + routeLengthFactor +
                 '}';
     }
-
-
-    //    public void addStation(Station station) {
-//        RouteStation routeStation = new RouteStation(this, station);
-//        stations.add(routeStation);
-//        station.getRoutes().add(routeStation);
-//    }
-//
-//    public void removeStation(Station station) {
-//        for (Iterator<RouteStation> iterator = stations.iterator(); iterator.hasNext(); ) {
-//            RouteStation routeStation = iterator.next();
-//
-//            if (routeStation.getRoute().equals(this) && routeStation.getStation().equals(station)) {
-//                iterator.remove();
-//                routeStation.getStation().getRoutes().remove(routeStation);
-//                routeStation.setRoute(null);
-//                routeStation.setStation(null);
-//            }
-//        }
-//    }
 }

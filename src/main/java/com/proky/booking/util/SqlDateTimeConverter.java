@@ -24,7 +24,7 @@ public class SqlDateTimeConverter {
     public Date convertToSqlDate(String dateUI) {
         final String[] splitDate = dateUI.replace("/", whiteSpaceChar).split(whiteSpaceChar);
         String formated = splitDate[2].concat(dateSeparator).concat(splitDate[0]).concat(dateSeparator).concat(splitDate[1]);
-        System.out.println(formated);
+//        System.out.println(formated);
         return Date.valueOf(formated);
     }
 
@@ -46,7 +46,7 @@ public class SqlDateTimeConverter {
             time = Time.valueOf(timeWithoutPM + timeSeparator + zeroSeconds);
         }
 
-        System.out.println(time);
+//        System.out.println(time);
         return time;
     }
 }

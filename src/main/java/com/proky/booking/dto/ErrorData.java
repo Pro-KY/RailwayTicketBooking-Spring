@@ -1,24 +1,20 @@
 package com.proky.booking.dto;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 
+@Data
+@NoArgsConstructor
 public class ErrorData implements Serializable {
     private String requestURI;
     private String servletName;
     private Integer statusCode;
     private String exceptionName;
     private String exceptionMessage;
-
-    public ErrorData() {}
-
-    public ErrorData(String requestURI, String servletName, Integer statusCode, String exceptionName, String exceptionMessage) {
-        this.requestURI = requestURI;
-        this.servletName = servletName;
-        this.statusCode = statusCode;
-        this.exceptionName = exceptionName;
-        this.exceptionMessage = exceptionMessage;
-    }
 
     public ErrorData(HttpServletRequest request) {
         Throwable throwable = (Throwable) request.getAttribute("javax.servlet.error.exception");
@@ -36,56 +32,5 @@ public class ErrorData implements Serializable {
         if (requestURI == null) {
             requestURI = "Unknown";
         }
-    }
-
-    public String getRequestURI() {
-        return requestURI;
-    }
-
-    public void setRequestURI(String requestURI) {
-        this.requestURI = requestURI;
-    }
-
-    public String getServletName() {
-        return servletName;
-    }
-
-    public void setServletName(String servletName) {
-        this.servletName = servletName;
-    }
-
-    public Integer getStatusCode() {
-        return statusCode;
-    }
-
-    public void setStatusCode(Integer statusCode) {
-        this.statusCode = statusCode;
-    }
-
-    public String getExceptionName() {
-        return exceptionName;
-    }
-
-    public void setExceptionName(String exceptionName) {
-        this.exceptionName = exceptionName;
-    }
-
-    public String getExceptionMessage() {
-        return exceptionMessage;
-    }
-
-    public void setExceptionMessage(String exceptionMessage) {
-        this.exceptionMessage = exceptionMessage;
-    }
-
-    @Override
-    public String toString() {
-        return "ErrorData{" +
-                "requestURI='" + requestURI + '\'' +
-                ", servletName='" + servletName + '\'' +
-                ", statusCode='" + statusCode + '\'' +
-                ", exceptionName='" + exceptionName + '\'' +
-                ", exceptionMessage='" + exceptionMessage + '\'' +
-                '}';
     }
 }

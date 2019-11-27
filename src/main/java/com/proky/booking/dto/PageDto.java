@@ -10,8 +10,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PageDto implements Serializable {
-    private Integer currentPageIndex = 0;
-    private Integer pageSize = 3;
+    private  final int DEFAULT_START_INDEX = 0;
+    private final int DEFAULT_PAGE_SIZE = 3;
+
+    private Integer currentPageIndex = DEFAULT_START_INDEX;
+    private Integer pageSize = DEFAULT_PAGE_SIZE;
 
     private Boolean isNextClicked = false;
     private Boolean isPreviousClicked = false;
@@ -23,4 +26,18 @@ public class PageDto implements Serializable {
 
     private Long userId;
     private List pageList;
+
+    public void updatePageDtoValues(Integer pageSize, Boolean prevPageClick, Boolean nextPageClick, Integer selectedPageIndex) {
+        currentPageIndex = (selectedPageIndex != null) ? selectedPageIndex : currentPageIndex;
+        isNextClicked = (nextPageClick != null) ? nextPageClick : false;
+        isPreviousClicked = (prevPageClick != null) ? prevPageClick : false;
+//        this.pageSize = (pageSize != null) ? pageSize : DEFAULT_PAGE_SIZE;
+
+        if (pageSize != null && !pageSize.equals(this.pageSize)) {
+            this.pageSize = pageSize;
+            currentPageIndex = DEFAULT_START_INDEX;
+        } else {
+            this.pageSize = DEFAULT_PAGE_SIZE;
+        }
+    }
 }

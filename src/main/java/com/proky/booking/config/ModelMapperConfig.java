@@ -1,4 +1,4 @@
-package com.proky.booking.configuration;
+package com.proky.booking.config;
 
 import com.proky.booking.dto.TrainDto;
 import com.proky.booking.persistence.entities.Train;
@@ -7,7 +7,7 @@ import org.modelmapper.PropertyMap;
 import org.springframework.context.annotation.*;
 
 @Configuration
-public class ModelMapperConfiguration {
+public class ModelMapperConfig {
 
     @Bean
     public ModelMapper modelMapper(PropertyMap<Train, TrainDto> trainDtoMapper) {
@@ -27,5 +27,4 @@ public class ModelMapperConfiguration {
             }
         };
     }
-
 }

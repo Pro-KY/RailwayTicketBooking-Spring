@@ -4,15 +4,11 @@ import com.proky.booking.dto.PageDto;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-//@ToString
 public class PaginationService {
     private int pageSize;
-//    private long offSet = 0;
     private long startVisibleIndex;
     private long endVisibleIndex;
     private int currentPageIndex;
-
-//    private long allRowsAmount;
     private int allPagesAmount;
 
     private static final int DEFAULT_PAGE_SIZE = 3; // 5
@@ -50,16 +46,13 @@ public class PaginationService {
         final Integer pageSize = pageDto.getPageSize();
         this.pageSize = (pageSize != null) ? pageDto.getPageSize() : DEFAULT_PAGE_SIZE;
 
-//        calculateEndVisibleIndex();
-//        changeButtonsState();
+        calculateEndVisibleIndex();
+        changeButtonsState();
 
         if (pageDto.getIsNextClicked()) {
             handleNextButtonClick();
         } else if (pageDto.getIsPreviousClicked()) {
             handlePreviousButtonClick();
-        } else {
-            System.out.println("dummy calculateOffset");
-//            calculateOffset();
         }
     }
 
@@ -73,13 +66,8 @@ public class PaginationService {
         pageDto.setPageSize(pageSize);
     }
 
-//    public void setAllRowsAmount(long allRowsAmount) {
-//        this.allRowsAmount = allRowsAmount;
-//    }
-
-
-    public void calculateEndVisibleIndex() {
-        log.info("endVisibleIndex before - {}", endVisibleIndex);
+    private void calculateEndVisibleIndex() {
+        log.debug("endVisibleIndex before: {}", endVisibleIndex);
         if (allPagesAmount == 0) {
             endVisibleIndex = 0;
         } else if (endVisibleIndex == 0 & allPagesAmount > DEFAULT_END_INDEX) {
@@ -87,31 +75,25 @@ public class PaginationService {
         } else if (allPagesAmount < DEFAULT_END_INDEX) {
             endVisibleIndex = allPagesAmount - 1;
         }
-        log.info("endVisibleIndex after - {}", endVisibleIndex);
+        log.debug("endVisibleIndex after: {}", endVisibleIndex);
     }
 
-//    public void calculateOffset() {
-//        offSet = currentPageIndex * pageSize;
-//    }
-
-    public void handleNextButtonClick() {
+    private void handleNextButtonClick() {
         if (currentPageIndex < endVisibleIndex) {
             currentPageIndex += 1;
         } else if (currentPageIndex == endVisibleIndex) {
             shiftPagesIndexes(true);
         }
         changeButtonsState();
-//        calculateOffset();
     }
 
-    public void handlePreviousButtonClick() {
+    private void handlePreviousButtonClick() {
         if (currentPageIndex > startVisibleIndex) {
             currentPageIndex -= 1;
         } else if (currentPageIndex == startVisibleIndex) {
             shiftPagesIndexes(false);
         }
         changeButtonsState();
-//        calculateOffset();
     }
 
     public void changeButtonsState() {
@@ -124,20 +106,22 @@ public class PaginationService {
         endVisibleIndex += forward ? 1 : -1;
         currentPageIndex += forward ? 1 : -1;
 
-        log.info("shift indexes");
-        log.info("startVisibleIndex - {}", startVisibleIndex);
-        log.info("endVisibleIndex - {}", endVisibleIndex);
+        log.debug("shift indexes");
+        log.debug("startVisibleIndex: {}", startVisibleIndex);
+        log.debug("endVisibleIndex: {}", endVisibleIndex);
     }
 
-    public long getPageSize() {
+    public int getPageSize() {
         return pageSize;
     }
-
-//    public long getOffSet() {
-//        return offSet;
-//    }
 
     public void setAllPagesAmount(int allPagesAmount) {
         this.allPagesAmount = allPagesAmount;
     }
+
+    public int getCurrentPageIndex() {
+        return currentPageIndex;
+    }
+
+
 }

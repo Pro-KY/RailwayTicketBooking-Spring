@@ -34,8 +34,6 @@ public class TrainService {
 
     @Transactional
     public PageDto findTrains(final PageDto pageDto, String dateUI, String timeUI, String stationId) {
-        log.info("pageDto in: {}", pageDto.toString());
-
         final Date date = sqlDateTimeConverter.convertToSqlDate(dateUI);
         final Time time = sqlDateTimeConverter.convertToSqlTime(timeUI);
         final Station station = stationService.findById(Long.parseLong(stationId));
@@ -44,26 +42,16 @@ public class TrainService {
         paginationService.setPageDto(pageDto);
         paginationService.calculatePagination();
 
-        Pageable pageable = PageRequest.of(pageDto.getCurrentPageIndex(), pageDto.getPageSize());
-        paginationService.setAllPagesAmount(pageable.getPageNumber());
-        paginationService.calculateEndVisibleIndex();
+        Pageable pageable = PageRequest.of(paginationService.getCurrentPageIndex(), paginationService.getPageSize());
 
         final Page<Train> foundTrains = trainRepository.findAllByDepartureDateAndDepartureTimeAndStation(date, time, station, pageable);
-
-        for (Train foundTrain : foundTrains) {
-            System.out.println(foundTrain);
-        }
+        paginationService.setAllPagesAmount(foundTrains.getTotalPages());
+        paginationService.calculatePagination();
 
         final List<TrainDto> trainDtoList = foundTrains.get().map(this::mapTrainToDto).collect(Collectors.toList());
         pageDto.setPageList(trainDtoList);
 
         paginationService.updatePageDto();
-
-        for (TrainDto trainDto : trainDtoList) {
-            System.out.println(trainDto.toString());
-        }
-
-        log.info("pageDto out: {}", pageDto.toString());
 
         return pageDto;
     }

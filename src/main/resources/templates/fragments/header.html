@@ -5,7 +5,7 @@
 </head>
 <body>
     <th:block th:fragment="header">
-        <div class="container-fluid p-0 fixed-top">
+        <div class="container-fluid p-0 fixed-top" th:object="${session.user}">
             <nav class="navbar navbar-expand-lg navbar-light" id="header">
                 <div class="collapse navbar-collapse">
                     <a class="navbar-brand" th:href="@{/}">
@@ -14,7 +14,7 @@
                 </div>
                 <span class="navbar-text mr-3">
                     <span th:text="#{header.greeting}"></span>,
-                    <span th:if="${session.user ne null}">[[${user.firstName}]] [[${user.lastName}]]</span>
+                    <span th:if="${session.user ne null}" th:text="(*{firstName}+' '+ *{lastName})"></span>
                     <span th:unless="${session.user ne null}" th:text="#{header.guest}"></span>
                 </span>
 

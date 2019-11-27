@@ -1,5 +1,7 @@
 package com.proky.booking.config;
 
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
+import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.LocaleResolver;
@@ -29,4 +31,9 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(localeChangeInterceptor());
     }
 
+    @Bean
+    public WebServerFactoryCustomizer<ConfigurableServletWebServerFactory>
+    webServerFactoryCustomizer() {
+        return factory -> factory.setContextPath("/booking");
+    }
 }

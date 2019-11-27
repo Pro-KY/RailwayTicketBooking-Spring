@@ -9,9 +9,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.Date;
 import java.util.List;
 
 @Log4j2
@@ -27,6 +25,16 @@ public class MainController {
         final List<Station> allStations = stationService.findAllStations();
         model.addAttribute(Attributes.STATIONS, allStations);
         log.info("index called");
-        return viewProperties.getINDEX();
+        return viewProperties.getIndexPage();
+    }
+
+    @GetMapping("/signInPage")
+    public String signInPage() {
+        return viewProperties.getSignInPage();
+    }
+
+    @GetMapping("/signUpPage")
+    public String signUpPage() {
+        return viewProperties.getSignUpPage();
     }
 }

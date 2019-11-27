@@ -2,7 +2,6 @@ package com.proky.booking.presentation.controller;
 
 import com.proky.booking.dto.PageDto;
 import com.proky.booking.service.TrainService;
-import com.proky.booking.util.SqlDateTimeConverter;
 import com.proky.booking.util.constans.http.Attributes;
 import com.proky.booking.util.properties.ViewProperties;
 import lombok.AllArgsConstructor;
@@ -76,6 +75,6 @@ public class TrainController {
         model.addAttribute(Attributes.DEPARTURE_TIME, departureTime);
         model.addAttribute(Attributes.GOING_TO, goingTo);
 
-        return viewProperties.getINDEX();
+        return viewProperties.getIndexPage();
     }
 }

@@ -1,5 +1,6 @@
 package com.proky.booking.util;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
@@ -10,28 +11,20 @@ public class SqlDateTimeConverter {
     private final static String timeSeparator = ":";
     private final static String dateSeparator = "-";
     private final static String whiteSpaceChar = " ";
-    private static SqlDateTimeConverter mInstance;
 
     private SqlDateTimeConverter() {}
 
-    public static SqlDateTimeConverter getInstance() {
-        if (mInstance == null) {
-            mInstance = new SqlDateTimeConverter();
-        }
-        return mInstance;
-    }
-
     public Date convertToSqlDate(String dateUI) {
         final String[] splitDate = dateUI.replace("/", whiteSpaceChar).split(whiteSpaceChar);
-        String formated = splitDate[2].concat(dateSeparator).concat(splitDate[0]).concat(dateSeparator).concat(splitDate[1]);
-//        System.out.println(formated);
-        return Date.valueOf(formated);
+        String formatedDate = splitDate[2] + dateSeparator + splitDate[0] + dateSeparator + splitDate[1];
+        return Date.valueOf(formatedDate);
     }
 
     public Time convertToSqlTime(String timeUI) {
+        String formatedTime;
+
         String zeroSeconds = "00";
         int hours = 12;
-        Time time;
 
         final String timeWithoutPM = timeUI.substring(0, timeUI.indexOf(" "));
 
@@ -41,12 +34,12 @@ public class SqlDateTimeConverter {
             final int timePart = Integer.parseInt(splitTime[0]);
             final String minutesPart = splitTime[1];
             int PmHour = timePart + hours;
-            time = Time.valueOf(PmHour + timeSeparator + minutesPart + timeSeparator + zeroSeconds);
+            formatedTime = PmHour + timeSeparator + minutesPart + timeSeparator + zeroSeconds;
         } else {
-            time = Time.valueOf(timeWithoutPM + timeSeparator + zeroSeconds);
+            formatedTime = timeWithoutPM + timeSeparator + zeroSeconds;
         }
 
-//        System.out.println(time);
-        return time;
+
+        return Time.valueOf(formatedTime);
     }
 }

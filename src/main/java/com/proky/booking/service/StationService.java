@@ -1,5 +1,6 @@
 package com.proky.booking.service;
 
+import com.proky.booking.exception.ServiceException;
 import com.proky.booking.persistence.entities.Station;
 import com.proky.booking.persistence.repository.StationRepository;
 import com.proky.booking.util.properties.Message;
@@ -19,8 +20,7 @@ public class StationService {
     }
 
     Station findById(Long id) {
-//        return stationRepository.findById(id).orElseThrow(() -> new ServiceException(messageProperties.getNOT_FOUND_ENTITY()));
-        return null;
+        return stationRepository.findById(id).orElseThrow(() -> new ServiceException(message.notFoundEntity));
     }
 
 }

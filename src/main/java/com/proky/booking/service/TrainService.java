@@ -32,9 +32,9 @@ public class TrainService {
     private ModelMapper modelMapper;
 
     @Transactional
-    public PageDto findTrains(final PageDto pageDto, String dateUI, String timeUI, String stationId) {
-        final Date date = sqlDateTimeConverter.convertToSqlDate(dateUI);
-        final Time time = sqlDateTimeConverter.convertToSqlTime(timeUI);
+    public PageDto findTrains(final PageDto pageDto, String requestDate, String requestTime, String stationId) {
+        final Date date = sqlDateTimeConverter.convertToSqlDate(requestDate);
+        final Time time = sqlDateTimeConverter.convertToSqlTime(requestTime);
         final Station station = stationService.findById(Long.parseLong(stationId));
 
         final PaginationService paginationService = getProxyPaginationService();
@@ -44,15 +44,15 @@ public class TrainService {
         Pageable pageable = PageRequest.of(paginationService.getCurrentPageIndex(), paginationService.getPageSize());
 
         final Page<Train> foundTrains = trainDao.findAllByDepartureDateAndDepartureTimeAndStation(date, time, station, pageable);
-        paginationService.setAllPagesAmount(foundTrains.getTotalPages());
-        paginationService.calculatePageIndex();
-
         final List<TrainDto> trainDtoList = foundTrains.get().map(this::mapTrainToDto).collect(Collectors.toList());
+
+        paginationService.setAllPagesAmount(foundTrains.getTotalPages());
+        paginationService.changeIndexBoundariesAndButtonsState();
         pageDto.setPageList(trainDtoList);
 
         paginationService.updatePageDto();
 
-        return pageDto;
+        return paginationService.getpageDto();
     }
 
     @Lookup

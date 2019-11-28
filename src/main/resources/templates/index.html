@@ -4,7 +4,7 @@
     <title>Title</title>
     <th:block th:insert="~{fragments/staticImports :: headImports}"> </th:block>
 </head>
-<body th:with="findTrainParameters=@{(goingTo=${param.goingTo},departureDate=${param.departureDate}, departureTime=${param.departureTime})}">
+<body>
     <!-- HEADER -->
     <div th:replace="fragments/header :: header"></div>
     <!-- HEADER -->
@@ -16,8 +16,8 @@
                     <div class="col-3"> <!--GOING_TO-->
                         <div class="form-group">
                             <label for="usertype" th:text="#{going.to}"></label>
-                            <select class="form-control" id="usertype" name="goingTo">
-                                <option th:each="station : ${stations}" th:value="${station.id}" selected th:text="#{${#strings.concat('station.', station.id)}}"></option>
+                            <select class="form-control" id="usertype" name="goingTo">me
+                                <option th:each="station : ${stations}" th:value="${station.id}" th:selected="${station.id eq '1'}"  th:text="#{${#strings.concat('station.', station.id)}}"></option>
                             </select>
                         </div>
                     </div> <!--GOING_TO-->
@@ -62,13 +62,15 @@
                         [[#{sent.reports.page.size}]]
                     </a>
                     <div class="dropdown-menu" aria-labelledby="pageSizeDropdown">
-                        <a class="dropdown-item" th:href="@{/trains/find(pageSize=3, goingTo=${param.goingTo},departureDate=${param.departureDate},departureTime=${param.departureTime})}"> 3 </a>
-                        <a class="dropdown-item" th:href="@{/trains/find(pageSize=5, goingTo=${param.goingTo},departureDate=${param.departureDate},departureTime=${param.departureTime})}"> 5 </a>
-                        <a class="dropdown-item" th:href="@{/trains/find(pageSize=10,goingTo=${param.goingTo},departureDate=${param.departureDate},departureTime=${param.departureTime})}"> 10 </a>
+                        <a class="dropdown-item" th:href="@{/trains/find(pageSize=3, goingTo=${goingTo},departureDate=${departureDate},departureTime=${departureTime})}"> 3 </a>
+                        <a class="dropdown-item" th:href="@{/trains/find(pageSize=5, goingTo=${goingTo},departureDate=${departureDate},departureTime=${departureTime})}"> 5 </a>
+                        <a class="dropdown-item" th:href="@{/trains/find(pageSize=10,goingTo=${goingTo},departureDate=${departureDate},departureTime=${departureTime})}"> 10 </a>
                     </div>
                 </div>
             </div>
         </div> <!--PAGE_SIZE-->
+
+        <span th:text="${pageDto == null}"></span>
 
         <div style="border: #0b2e13" class="row"><!--TABLE-->
             <table class="table">
@@ -82,8 +84,8 @@
                 </thead>
                 <tbody>
 
-                <th:block th:if="${session.model != null}">
-                    <tr class="table-row clickable-row" th:href="@{/trains/booking(trainId=${train.trainId})}" th:each="train : ${session.model.pageList}">
+                <th:block th:if="${pageDto != null}">
+                    <tr class="table-row clickable-row" th:href="@{/trains/booking(trainId=${train.trainId})}" th:each="train : ${pageDto.pageList}">
                         <td th:text="${train.trainId} + ' ' + ${train.trainType}"> </td>
                         <td>
                             <button type="button" class="btn btn-link example-popover p-0 routeName" data-trigger="hover" data-toggle="popover" th:attr="data-content=${stations2}, title=#{table.header.route}" th:text="${#strings.concat(train.departureStationName,' - ',train.arrivalStationName)}"></button>
@@ -103,9 +105,7 @@
             </table>
         </div> <!--TABLE-->
 
-        <span th:text="${param.departureDate}"></span>
-
-        <th:block th:if="${session.model != null and session.model.allPagesAmount > 1}"> <!--PAGINATION-->
+        <th:block th:if="${pageDto != null and pageDto.allPagesAmount > 1}"> <!--PAGINATION-->
             <div class="row mt-4">
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
@@ -113,16 +113,16 @@
                         <ul class="pagination" style="list-style-type: none;">
                             <div class="container-fluid">
                                 <div class="btn-group">
-                                    <li th:class="${session?.model?.isLeftButtonDisabled} ? 'page-item disabled' : 'page-item'">
-                                        <a class="page-link" th:href="@{/trains/find(prevPageClick=true, pageSize=${session?.model?.pageSize}, goingTo=${param.goingTo},departureDate=${param.departureDate}, departureTime=${param.departureTime})}" th:text="#{pagination.previous}"></a>
+                                    <li th:class="${pageDto.isLeftButtonDisabled} ? 'page-item disabled' : 'page-item'">
+                                        <a class="page-link" th:href="@{/trains/find(prevPageClick=true, pageIndex=${pageDto.currentPageIndex}, pageSize=${pageDto.pageSize}, goingTo=${goingTo},departureDate=${departureDate}, departureTime=${departureTime})}" th:text="#{pagination.previous}"></a>
                                     </li>
 
-                                    <li th:each="i : ${#numbers.sequence(session?.model?.startPageIndex, session?.model?.endPageIndex)}" th:class="${session?.model?.currentPageIndex == i} ? 'page-item active' : 'page-item'">
-                                        <a class="page-link" th:href="@{/trains/find(pageIndex=${i}, pageSize=${session?.model?.pageSize}, goingTo=${param.goingTo},departureDate=${param.departureDate}, departureTime=${param.departureTime})}" th:text="${i+1}"> </a>
+                                    <li th:each="i : ${#numbers.sequence(pageDto.startPageIndex, pageDto.endPageIndex)}" th:class="${pageDto.currentPageIndex == i} ? 'page-item active' : 'page-item'">
+                                        <a class="page-link" th:href="@{/trains/find(pageIndex=${i}, pageSize=${pageDto.pageSize}, goingTo=${goingTo},departureDate=${departureDate}, departureTime=${departureTime})}" th:text="${i+1}"> </a>
                                     </li>
 
-                                    <li th:class="${session?.model?.isRightButtonDisabled} ? 'page-item disabled' : 'page-item'">
-                                        <a class="page-link" th:href="@{/trains/find(nextPageClick=true, pageSize=${session?.model?.pageSize}, goingTo=${param.goingTo},departureDate=${param.departureDate}, departureTime=${param.departureTime})}" th:text="#{pagination.next}"></a>
+                                    <li th:class="${pageDto.isRightButtonDisabled} ? 'page-item disabled' : 'page-item'">
+                                        <a class="page-link" th:href="@{/trains/find(nextPageClick=true, pageIndex=${pageDto.currentPageIndex}, pageSize=${pageDto.pageSize}, goingTo=${goingTo},departureDate=${departureDate}, departureTime=${departureTime})}" th:text="#{pagination.next}"></a>
                                     </li>
                                 </div>
                             </div>
@@ -130,16 +130,18 @@
                     </nav>
                 </div>
             </div>
+
+            <div class="float-left">
+                <p>isLeftButtonDisabled : <span th:text="${pageDto.isLeftButtonDisabled}"></span></p>
+                <p>isRightButtonDisabled : <span th:text="${pageDto.isRightButtonDisabled}"></span></p>
+                <p>currentPageIndex : <span th:text="${pageDto.currentPageIndex}"></span></p>
+                <p>allPagesAmount : <span th:text="${pageDto.allPagesAmount}"></span></p>
+                <p>startPageIndex : <span th:text="${pageDto.startPageIndex}"></span></p>
+                <p>endPageIndex : <span th:text="${pageDto.endPageIndex}"></span></p>
+            </div>
         </th:block> <!--PAGINATION-->
 
-        <div class="float-left">
-            <p>isLeftButtonDisabled : <span th:text="${session?.model?.isLeftButtonDisabled}"></span></p>
-            <p>isRightButtonDisabled : <span th:text="${session?.model?.isRightButtonDisabled}"></span></p>
-            <p>currentPageIndex : <span th:text="${session?.model?.currentPageIndex}"></span></p>
-            <p>allPagesAmount : <span th:text="${session?.model?.allPagesAmount}"></span></p>
-            <p>startPageIndex : <span th:text="${session?.model?.startPageIndex}"></span></p>
-            <p>endPageIndex : <span th:text="${session?.model?.endPageIndex}"></span></p>
-        </div>
+
 
 <!--        </th:block> &lt;!&ndash;PAGINATION&ndash;&gt;-->
     </div> <!-- MAIN CONTENT -->

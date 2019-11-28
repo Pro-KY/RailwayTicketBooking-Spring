@@ -47,20 +47,6 @@ public class PaginationService {
 
 
     public void calculatePageIndex() {
-//        final Long startVisibleIndex = pageDto.getStartPageIndex();
-//        final Long endVisibleIndex = pageDto.getEndPageIndex();
-//        final Integer currentPageIndex = pageDto.getCurrentPageIndex();
-//
-//        this.startVisibleIndex = (startVisibleIndex != null) ? startVisibleIndex : DEFAULT_START_INDEX;
-//        this.endVisibleIndex = (endVisibleIndex != null) ? endVisibleIndex : DEFAULT_END_INDEX;
-//        this.currentPageIndex = (currentPageIndex != null) ? currentPageIndex : DEFAULT_START_INDEX;
-//        final Integer pageSize = pageDto.getPageSize();
-//        this.pageSize = (pageSize != null) ? pageDto.getPageSize() : DEFAULT_PAGE_SIZE;
-
-
-//        calculateEndVisibleIndex();
-//        changeButtonsState();
-
         if (pageDto.getIsNextClicked()) {
             handleNextButtonClick();
         } else if (pageDto.getIsPreviousClicked()) {

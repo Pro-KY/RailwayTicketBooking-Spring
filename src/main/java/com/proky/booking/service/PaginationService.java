@@ -23,8 +23,18 @@ public class PaginationService {
         return pageDto;
     }
 
-    public void setPageDto(PageDto pageDto) {
+    public void setPageDto(final PageDto pageDto) {
         this.pageDto = pageDto;
+
+        final Long startVisibleIndex = this.pageDto.getStartPageIndex();
+        final Long endVisibleIndex = this.pageDto.getEndPageIndex();
+        final Integer currentPageIndex = this.pageDto.getCurrentPageIndex();
+
+        this.startVisibleIndex = (startVisibleIndex != null) ? startVisibleIndex : DEFAULT_START_INDEX;
+        this.endVisibleIndex = (endVisibleIndex != null) ? endVisibleIndex : DEFAULT_END_INDEX;
+        this.currentPageIndex = (currentPageIndex != null) ? currentPageIndex : DEFAULT_START_INDEX;
+        final Integer pageSize = this.pageDto.getPageSize();
+        this.pageSize = (pageSize != null) ? this.pageDto.getPageSize() : DEFAULT_PAGE_SIZE;
     }
 
     private static final Logger log = LogManager.getLogger(PaginationService.class);
@@ -35,16 +45,17 @@ public class PaginationService {
         this.pageDto = pageDto;
     }
 
-    public void calculatePagination() {
-        final Long startVisibleIndex = pageDto.getStartPageIndex();
-        final Long endVisibleIndex = pageDto.getEndPageIndex();
-        final Integer currentPageIndex = pageDto.getCurrentPageIndex();
 
-        this.startVisibleIndex = (startVisibleIndex != null) ? startVisibleIndex : DEFAULT_START_INDEX;
-        this.endVisibleIndex = (endVisibleIndex != null) ? endVisibleIndex : DEFAULT_END_INDEX;
-        this.currentPageIndex = (currentPageIndex != null) ? currentPageIndex : DEFAULT_START_INDEX;
-        final Integer pageSize = pageDto.getPageSize();
-        this.pageSize = (pageSize != null) ? pageDto.getPageSize() : DEFAULT_PAGE_SIZE;
+    public void calculatePagination() {
+//        final Long startVisibleIndex = pageDto.getStartPageIndex();
+//        final Long endVisibleIndex = pageDto.getEndPageIndex();
+//        final Integer currentPageIndex = pageDto.getCurrentPageIndex();
+//
+//        this.startVisibleIndex = (startVisibleIndex != null) ? startVisibleIndex : DEFAULT_START_INDEX;
+//        this.endVisibleIndex = (endVisibleIndex != null) ? endVisibleIndex : DEFAULT_END_INDEX;
+//        this.currentPageIndex = (currentPageIndex != null) ? currentPageIndex : DEFAULT_START_INDEX;
+//        final Integer pageSize = pageDto.getPageSize();
+//        this.pageSize = (pageSize != null) ? pageDto.getPageSize() : DEFAULT_PAGE_SIZE;
 
         calculateEndVisibleIndex();
         changeButtonsState();

@@ -6,7 +6,6 @@ import com.proky.booking.dto.TrainDto;
 import com.proky.booking.persistence.dao.ITrainDao;
 import com.proky.booking.persistence.entities.Station;
 import com.proky.booking.persistence.entities.Train;
-import com.proky.booking.persistence.repository.TrainRepository;
 import com.proky.booking.util.SqlDateTimeConverter;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -40,13 +39,13 @@ public class TrainService {
 
         final PaginationService paginationService = getProxyPaginationService();
         paginationService.setPageDto(pageDto);
-        paginationService.calculatePagination();
+        paginationService.calculatePageIndex();
 
         Pageable pageable = PageRequest.of(paginationService.getCurrentPageIndex(), paginationService.getPageSize());
 
         final Page<Train> foundTrains = trainDao.findAllByDepartureDateAndDepartureTimeAndStation(date, time, station, pageable);
         paginationService.setAllPagesAmount(foundTrains.getTotalPages());
-        paginationService.calculatePagination();
+        paginationService.calculatePageIndex();
 
         final List<TrainDto> trainDtoList = foundTrains.get().map(this::mapTrainToDto).collect(Collectors.toList());
         pageDto.setPageList(trainDtoList);

@@ -8,17 +8,17 @@ import org.springframework.stereotype.Component;
 
 @Component
 @PropertySource("classpath:view.properties")
-public class ViewProperties {
+public class View {
     @Value("${index}")
-    public String indexView;
+    public String index;
 
     @Value("${signIn}")
-    public String signInView;
+    public String signIn;
 
     @Value("${signUp}")
-    public String signUpView;
+    public String signUp;
 
     @Value("${adminUsers}")
-    public String adminUsersView;
+    public String adminUsers;
 
 }

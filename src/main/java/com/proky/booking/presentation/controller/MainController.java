@@ -3,40 +3,39 @@ package com.proky.booking.presentation.controller;
 import com.proky.booking.persistence.entities.Station;
 import com.proky.booking.service.StationService;
 import com.proky.booking.util.constans.http.Attributes;
-import com.proky.booking.util.properties.ViewProperties;
+import com.proky.booking.util.properties.View;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.ServletContext;
 import java.util.List;
 
 @Log4j2
 @Controller
 @AllArgsConstructor
-@SessionAttributes(Attributes.STATIONS)
 public class MainController {
     private StationService stationService;
-    private ViewProperties viewProperties;
-    private ServletContext context;
+    private View view;
 
-    @RequestMapping(path = {"/booking", "index"})
+//    @RequestMapping(path = {"/booking", "/trains"})
+    @RequestMapping(path = {"/", "/trains"})
+//    @RequestMapping("/trains")
     public String indexPage(Model model) {
         final List<Station> allStations = stationService.findAllStations();
         model.addAttribute(Attributes.STATIONS, allStations);
         log.info("index called");
-        return viewProperties.indexView;
+        return view.index;
     }
 
     @GetMapping("/signInPage")
     public String signInPage() {
-        return viewProperties.signInView;
+        return view.signIn;
     }
 
     @GetMapping("/signUpPage")
     public String signUpPage() {
-        return viewProperties.signUpView;
+        return view.signUp;
     }
 }

@@ -13,7 +13,7 @@ import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
 @Component
-public class MessageProperties {
+public class Message {
     private  final String fileName = "message";
     private  final String USER_EXIST = "USER_EXIST";
     private  final String NOT_VALID_PROPERTY = "NOT_VALID_PROPERTY";

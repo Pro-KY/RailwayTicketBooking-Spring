@@ -59,7 +59,9 @@
                             <div class="container-fluid">
                                 <div class="btn-group">
                                     <li th:class="${pageDto?.isLeftButtonDisabled} ? 'page-item disabled' : 'page-item'">
-                                        <a class="page-link" th:href="@{/admin/users(prevPageClick=true, pageSize=${pageDto?.pageSize})}" th:text="#{pagination.previous}"></a>
+                                        <a class="page-link" th:href="@{/admin/users(prevPageClick=true, pageSize=${pageDto?.pageSize}, pageIndex=${pageDto?.currentPageIndex})}" th:text="#{pagination.previous}">
+
+                                        </a>
                                     </li>
 
                                     <li th:each="i : ${#numbers.sequence(pageDto?.startPageIndex, pageDto?.endPageIndex)}" th:class="${pageDto?.currentPageIndex == i} ? 'page-item active' : 'page-item'">
@@ -67,7 +69,7 @@
                                     </li>
 
                                     <li th:class="${pageDto?.isRightButtonDisabled} ? 'page-item disabled' : 'page-item'">
-                                        <a class="page-link" th:href="@{/admin/users(nextPageClick=true, pageSize=${pageDto?.pageSize})}" th:text="#{pagination.next}"></a>
+                                        <a class="page-link" th:href="@{/admin/users(nextPageClick=true, pageSize=${pageDto?.pageSize}, pageIndex=${pageDto?.currentPageIndex})}" th:text="#{pagination.next}"></a>
                                     </li>
                                 </div>
                             </div>

@@ -46,7 +46,7 @@ public class PaginationService {
     }
 
 
-    public void calculatePagination() {
+    public void calculatePageIndex() {
 //        final Long startVisibleIndex = pageDto.getStartPageIndex();
 //        final Long endVisibleIndex = pageDto.getEndPageIndex();
 //        final Integer currentPageIndex = pageDto.getCurrentPageIndex();
@@ -57,14 +57,20 @@ public class PaginationService {
 //        final Integer pageSize = pageDto.getPageSize();
 //        this.pageSize = (pageSize != null) ? pageDto.getPageSize() : DEFAULT_PAGE_SIZE;
 
-        calculateEndVisibleIndex();
-        changeButtonsState();
+
+//        calculateEndVisibleIndex();
+//        changeButtonsState();
 
         if (pageDto.getIsNextClicked()) {
             handleNextButtonClick();
         } else if (pageDto.getIsPreviousClicked()) {
             handlePreviousButtonClick();
         }
+    }
+
+    public void changeIndexBoundariesAndButtonsState() {
+        calculateEndVisibleIndex();
+        changeButtonsState();
     }
 
     public void updatePageDto() {

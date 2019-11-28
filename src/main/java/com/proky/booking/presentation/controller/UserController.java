@@ -5,7 +5,7 @@ import com.proky.booking.persistence.entities.User;
 import com.proky.booking.service.SignInService;
 import com.proky.booking.service.UserService;
 import com.proky.booking.util.constans.http.Attributes;
-import com.proky.booking.util.properties.ViewProperties;
+import com.proky.booking.util.properties.View;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.constraints.NotBlank;
 
@@ -25,7 +24,7 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 @SessionAttributes(Attributes.USER)
 public class UserController {
-    private ViewProperties viewProperties;
+    private View view;
     private SignInService signInService;
     private UserService userService;
     private ModelMapper modelMapper;
@@ -41,7 +40,7 @@ public class UserController {
         log.info(userDto);
         userDto.setAdministrator(isAdministrator);
 
-        String viewPathUrl = isAdministrator ? viewProperties.adminUsersView : viewProperties.indexView;
+        String viewPathUrl = isAdministrator ? view.adminUsers : view.index;
         model.addAttribute(Attributes.USER, userDto);
 
         return "redirect:/" + viewPathUrl;
@@ -49,11 +48,11 @@ public class UserController {
 
     @PostMapping("/signUp")
     public String singUp() {
-        return viewProperties.signInView;
+        return view.signIn;
     }
 
     @PostMapping("/signOut")
     public String singOut() {
-        return viewProperties.signInView;
+        return view.signIn;
     }
 }

@@ -19,23 +19,11 @@ public class MainController {
     private StationService stationService;
     private View view;
 
-//    @RequestMapping(path = {"/booking", "/trains"})
     @RequestMapping(path = {"/", "/trains"})
-//    @RequestMapping("/trains")
     public String indexPage(Model model) {
         final List<Station> allStations = stationService.findAllStations();
         model.addAttribute(Attributes.STATIONS, allStations);
         log.info("index called");
         return view.index;
-    }
-
-    @GetMapping("/signInPage")
-    public String signInPage() {
-        return view.signIn;
-    }
-
-    @GetMapping("/signUpPage")
-    public String signUpPage() {
-        return view.signUp;
     }
 }

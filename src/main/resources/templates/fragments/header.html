@@ -18,7 +18,7 @@
                     <span th:unless="${session.user ne null}" th:text="#{header.guest}"></span>
                 </span>
 
-                <a class="btn btn-link" th:href="@{/signInPage}" th:if="${session.user eq null}" role="button">
+                <a class="btn btn-link" th:href="@{/user/signInPage}" th:if="${session.user eq null}" role="button">
                     <span th:text="#{header.authorize}"></span>
                 </a>
                 <a class="btn btn-link mr-1" th:href="@{/user/signOut}" th:unless="${session.user eq null}" role="button">

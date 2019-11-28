@@ -2,6 +2,7 @@ package com.proky.booking.presentation.controller;
 
 import com.proky.booking.dto.PageDto;
 import com.proky.booking.persistence.entities.Station;
+import com.proky.booking.service.StationService;
 import com.proky.booking.service.TrainService;
 import com.proky.booking.util.SqlDateTimeConverter;
 import com.proky.booking.util.constans.http.Attributes;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.List;
 
 @Log4j2
 @RequestMapping("/trains")
@@ -22,9 +24,10 @@ import java.sql.Time;
 @AllArgsConstructor
 //@SessionAttributes({Attributes.PAGE_DTO, Attributes.MODEL})
 public class TrainController {
+    private StationService stationService;
     private View view;
     private TrainService trainService;
-    SqlDateTimeConverter sqlDateTimeConverter;
+
 
     @PostMapping("/find")
     public String findTrain(@RequestParam(name="goingTo") String goingTo,

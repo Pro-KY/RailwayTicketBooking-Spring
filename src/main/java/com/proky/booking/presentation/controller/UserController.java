@@ -11,10 +11,7 @@ import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotBlank;
 
@@ -28,6 +25,16 @@ public class UserController {
     private SignInService signInService;
     private UserService userService;
     private ModelMapper modelMapper;
+
+    @GetMapping("/signInPage")
+    public String signInPage() {
+        return view.signIn;
+    }
+
+    @GetMapping("/signUpPage")
+    public String signUpPage() {
+        return view.signUp;
+    }
 
     @PostMapping("/signIn")
     public String singIn(@RequestParam @NotBlank String email, @RequestParam @NotBlank String password, Model model) {

@@ -12,6 +12,7 @@
                         <img alt="LOGO" class="z-index: 1050 !default" id="logo" th:src="@{/img/logo.png}">
                     </a>
                 </div>
+                <span th:text="${session.user == null}"></span>
                 <span class="navbar-text mr-3">
                     <span th:text="#{header.greeting}"></span>,
                     <span th:if="${session.user ne null}" th:text="(*{firstName}+' '+ *{lastName})"></span>

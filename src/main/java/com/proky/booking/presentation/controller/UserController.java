@@ -6,14 +6,19 @@ import com.proky.booking.service.SignInService;
 import com.proky.booking.service.UserService;
 import com.proky.booking.util.constans.http.Attributes;
 import com.proky.booking.util.properties.View;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotBlank;
+import java.util.Optional;
 
 @Log4j2
 @RequestMapping("/user")
@@ -58,8 +63,11 @@ public class UserController {
         return view.signIn;
     }
 
-    @PostMapping("/signOut")
-    public String singOut() {
-        return view.signIn;
+    @GetMapping("/signOut")
+    public String singOut(HttpSession session, SessionStatus status) {
+        status.setComplete();
+        session.invalidate();
+        log.info("user is signed out");
+        return "redirect:/";
     }
 }

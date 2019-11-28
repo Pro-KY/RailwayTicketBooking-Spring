@@ -15,7 +15,7 @@ public class UserTypeDaoImpl implements IUserTypeDao {
 
     @Override
     public Optional<UserType> findByType(String type) {
-        return Optional.empty();
+        return userTypeRepository.findByType(type);
     }
 
     @Override

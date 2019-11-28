@@ -26,7 +26,7 @@ public class TrainController {
                             @RequestParam(name="departureDate") String departureDate,
                             @RequestParam(name="departureTime") String departureTime,
                             @SessionAttribute(required = false) PageDto pageDto,
-                                                    RedirectAttributes attributes, Model model) {
+                                  RedirectAttributes attributes, Model model) {
 
         pageDto = (pageDto == null) ? new PageDto() : pageDto;
         log.info("pageDto {}", pageDto);
@@ -75,6 +75,6 @@ public class TrainController {
         model.addAttribute(Attributes.DEPARTURE_TIME, departureTime);
         model.addAttribute(Attributes.GOING_TO, goingTo);
 
-        return viewProperties.getIndexPage();
+        return viewProperties.indexView;
     }
 }

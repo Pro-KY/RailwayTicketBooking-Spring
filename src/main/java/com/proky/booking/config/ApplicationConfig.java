@@ -6,7 +6,8 @@ import org.springframework.context.annotation.*;
 
 @Configuration
 @PropertySources({
-        @PropertySource("classpath:view.properties")
+        @PropertySource("classpath:view.properties"),
+        @PropertySource("classpath:msg.properties")
 })
 public class ApplicationConfig {
     @Bean

@@ -38,19 +38,19 @@
                 </thead>
 
                 <tbody>
-                    <th:block th:if="${param.pageDto != null}">
-                        <tr class="table-row clickable-row" th:each="user : ${param.pageDto.pageList}" th:href="@{/admin/manageUser(userId=${user.id})}" >
-                            <td>${user.id}</td>
-                            <td>${user.firstName}</td>
-                            <td>${user.lastName}</td>
-                            <td>${user.email}</td>
+                    <th:block th:if="${pageDto != null}">
+                        <tr class="table-row clickable-row" th:each="user : ${pageDto.pageList}" th:href="@{/admin/manageUser(userId=${user.id})}" >
+                            <td th:text="${user.id}"></td>
+                            <td th:text="${user.firstName}"></td>
+                            <td th:text="${user.lastName}"></td>
+                            <td th:text="${user.email}"></td>
                         </tr>
                     </th:block>
                 </tbody>
             </table>
         </div> <!--TABLE-->
 
-        <th:block th:if="${param.pageDto != null and param.pageDto.allPagesAmount > 1}"> <!--PAGINATION-->
+        <th:block th:if="${pageDto != null and pageDto.allPagesAmount > 1}"> <!--PAGINATION-->
             <div class="row mt-4">
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
@@ -58,16 +58,16 @@
                         <ul class="pagination" style="list-style-type: none;">
                             <div class="container-fluid">
                                 <div class="btn-group">
-                                    <li th:class="${param?.pageDto?.isLeftButtonDisabled} ? 'page-item disabled' : 'page-item'">
-                                        <a class="page-link" th:href="@{/admin/users(prevPageClick=true, pageSize=${param?.pageDto?.pageSize})}" th:text="#{pagination.previous}"></a>
+                                    <li th:class="${pageDto?.isLeftButtonDisabled} ? 'page-item disabled' : 'page-item'">
+                                        <a class="page-link" th:href="@{/admin/users(prevPageClick=true, pageSize=${pageDto?.pageSize})}" th:text="#{pagination.previous}"></a>
                                     </li>
 
-                                    <li th:each="i : ${#numbers.sequence(param?.pageDto?.startPageIndex, param?.pageDto?.endPageIndex)}" th:class="${param?.pageDto?.currentPageIndex == i} ? 'page-item active' : 'page-item'">
-                                        <a class="page-link" th:href="@{/admin/users(pageIndex=${i}, pageSize=${session?.model?.pageSize})}" th:text="${i+1}"> </a>
+                                    <li th:each="i : ${#numbers.sequence(pageDto?.startPageIndex, pageDto?.endPageIndex)}" th:class="${pageDto?.currentPageIndex == i} ? 'page-item active' : 'page-item'">
+                                        <a class="page-link" th:href="@{/admin/users(pageIndex=${i}, pageSize=${pageDto?.pageSize})}" th:text="${i+1}"> </a>
                                     </li>
 
-                                    <li th:class="${param?.pageDto?.isRightButtonDisabled} ? 'page-item disabled' : 'page-item'">
-                                        <a class="page-link" th:href="@{/admin/users(nextPageClick=true, pageSize=${param?.pageDto?.pageSize})}" th:text="#{pagination.next}"></a>
+                                    <li th:class="${pageDto?.isRightButtonDisabled} ? 'page-item disabled' : 'page-item'">
+                                        <a class="page-link" th:href="@{/admin/users(nextPageClick=true, pageSize=${pageDto?.pageSize})}" th:text="#{pagination.next}"></a>
                                     </li>
                                 </div>
                             </div>
@@ -78,12 +78,12 @@
         </th:block> <!--PAGINATION-->
 
         <div class="float-left">
-            <p>isLeftButtonDisabled : <span th:text="${param?.pageDto?.isLeftButtonDisabled}"></span></p>
-            <p>isRightButtonDisabled : <span th:text="${param?.pageDto?.isRightButtonDisabled}"></span></p>
-            <p>currentPageIndex : <span th:text="${param?.pageDto?.currentPageIndex}"></span></p>
-            <p>allPagesAmount : <span th:text="${param?.pageDto?.allPagesAmount}"></span></p>
-            <p>startPageIndex : <span th:text="${param?.pageDto?.startPageIndex}"></span></p>
-            <p>endPageIndex : <span th:text="${param?.pageDto?.endPageIndex}"></span></p>
+            <p>isLeftButtonDisabled : <span th:text="${pageDto?.isLeftButtonDisabled}"></span></p>
+            <p>isRightButtonDisabled : <span th:text="${pageDto?.isRightButtonDisabled}"></span></p>
+            <p>currentPageIndex : <span th:text="${pageDto?.currentPageIndex}"></span></p>
+            <p>allPagesAmount : <span th:text="${pageDto?.allPagesAmount}"></span></p>
+            <p>startPageIndex : <span th:text="${pageDto?.startPageIndex}"></span></p>
+            <p>endPageIndex : <span th:text="${pageDto?.endPageIndex}"></span></p>
         </div>
 
         <!--        </th:block> &lt;!&ndash;PAGINATION&ndash;&gt;-->

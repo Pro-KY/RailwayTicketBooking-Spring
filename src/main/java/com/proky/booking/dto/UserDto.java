@@ -1,19 +1,18 @@
 package com.proky.booking.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
 public class UserDto implements Serializable {
    private String id;
    private String firstName;
    private String lastName;
-   private String email;
-   private String password;
+   @NonNull private String email;
+   @NonNull private String password;
    private String userTypeId;
+   private boolean isAdministrator;
 }

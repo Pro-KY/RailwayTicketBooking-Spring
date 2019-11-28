@@ -20,7 +20,8 @@ public class StationService {
     }
 
     Station findById(Long id) {
-        return stationRepository.findById(id).orElseThrow(() -> new ServiceException(messageProperties.getNOT_FOUND_ENTITY()));
+//        return stationRepository.findById(id).orElseThrow(() -> new ServiceException(messageProperties.getNOT_FOUND_ENTITY()));
+        return null;
     }
 
 }

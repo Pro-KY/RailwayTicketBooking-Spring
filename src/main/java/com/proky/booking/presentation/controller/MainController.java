@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletContext;
 import java.util.List;
 
 @Log4j2
@@ -19,22 +20,23 @@ import java.util.List;
 public class MainController {
     private StationService stationService;
     private ViewProperties viewProperties;
+    private ServletContext context;
 
-    @RequestMapping(path = {"/", "index"})
+    @RequestMapping(path = {"/booking", "index"})
     public String indexPage(Model model) {
         final List<Station> allStations = stationService.findAllStations();
         model.addAttribute(Attributes.STATIONS, allStations);
         log.info("index called");
-        return viewProperties.getIndexPage();
+        return viewProperties.indexView;
     }
 
     @GetMapping("/signInPage")
     public String signInPage() {
-        return viewProperties.getSignInPage();
+        return viewProperties.signInView;
     }
 
     @GetMapping("/signUpPage")
     public String signUpPage() {
-        return viewProperties.getSignUpPage();
+        return viewProperties.signUpView;
     }
 }

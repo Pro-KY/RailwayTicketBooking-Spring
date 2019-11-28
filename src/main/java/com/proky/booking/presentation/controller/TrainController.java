@@ -1,10 +1,9 @@
 package com.proky.booking.presentation.controller;
 
 import com.proky.booking.dto.PageDto;
-import com.proky.booking.persistence.entities.Station;
+import com.proky.booking.dto.TrainBookingDto;
 import com.proky.booking.service.StationService;
 import com.proky.booking.service.TrainService;
-import com.proky.booking.util.SqlDateTimeConverter;
 import com.proky.booking.util.constans.http.Attributes;
 import com.proky.booking.util.properties.View;
 import lombok.AllArgsConstructor;
@@ -13,10 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.sql.Date;
-import java.sql.Time;
-import java.util.List;
 
 @Log4j2
 @RequestMapping("/trains")
@@ -70,5 +65,13 @@ public class TrainController {
         model.addAttribute(Attributes.GOING_TO, goingTo);
 
         return view.index;
+    }
+
+    @GetMapping("/bookingPage")
+    public String bookingPage(@RequestParam Integer trainId, Model model) {
+        log.info(trainId);
+
+        model.addAttribute(Attributes.TRAIN_BOOKING, new TrainBookingDto());
+        return view.trainBooking;
     }
 }

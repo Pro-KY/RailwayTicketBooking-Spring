@@ -30,5 +30,6 @@ public class Attributes {
     public static final String ERROR_EXCEPTION_MSG = "exceptionMessage";
 
     public static final String STATIONS = "stations";
+    public static final String TRAIN_BOOKING = "trainBooking";
 
 }

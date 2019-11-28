@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>SignIn</title>
+    <th:block th:insert="~{fragments/staticImports :: headImports}"> </th:block>
+</head>
+<body>
+    <!-- HEADER -->
+    <div th:replace="fragments/header :: header"></div>
+    <!-- HEADER -->
+
+    <div class="container float-left ml-3 mt-5 pt-3">
+        <form method="POST" th:action ="@{/invoice}" name="trainBooking" th:object="${trainBooking}">
+            <input type="hidden" name="trainId" th:field="*{trainId}">
+
+            <div class="row align-items-start justify-content-start mb-3">
+                <div class="col-md-4 mt-3">
+                    <th:block th:if="${session.user eq null}">
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="inputFirstName" th:text="#{user.firstName}"></label>
+                                <input type="text" required class="form-control" id="inputFirstName" th:placeholder="#{user.firstName}" th:field="*{firstName}" name="firstName">
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="inputLastName" th:text="#{user.lastName}"></label>
+                                <input type="text" required class="form-control" id="inputLastName" th:placeholder="#{user.lastName}" th:field="*{lastName}" name="lastName">
+                            </div>
+                        </div>
+                    </th:block>
+
+                    <div class="form-group">
+                        <label for="numberInput" th:text="#{seats}"></label>
+                        <input class="form-control" type="number" value="1"  placeholder="1" id="numberInput" min="1" max="5" th:field="*{seatsAmount}" name="seatsAmount">
+                    </div>
+                </div>
+                <div class="col-md-8 mt-5">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col" th:text="#{table.header.train}"></th>
+                            <th scope="col" th:text="#{table.header.route}"></th>
+                            <th scope="col" th:text="#{table.header.date}"></th>
+                            <th scope="col" th:text="#{table.header.time}"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="table-row">
+                            <td>${train.trainId} ${train.trainType}</td>
+                            <td th:text="${#messages.msg(#strings.concat('station.', train?.departureStationId))} + '-' + ${#messages.msg(#strings.concat('station.', train?.arrivalStationId))}"></td>
+                            <td> <span th:text="${train?.routeDepartureDate}"></span> <br> <span th:text="${train?.routeArrivalDate}"></span></td>
+                            <td> <span th:text="${train?.routeDepartureTime}"></span> <br> <span th:text="${train?.routeArrivalTime}"></span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row align-items-start justify-content-center">
+                <div class="col-md-6"></div>
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-primary col-12" data-dismiss="modal" th:text="#{invoice.get}"></button>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+        </form>
+    </div>
+
+    <!-- FOOTER -->
+    <div th:replace="fragments/footer :: footer"></div>
+    <!-- FOOTER -->
+    <th:block th:insert="~{fragments/staticImports :: scriptImports}"> </th:block>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+</body>
+</html>

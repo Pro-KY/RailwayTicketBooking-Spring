@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>SignIn</title>
+    <th:block th:insert="~{fragments/staticImports :: headImports}"> </th:block>
+</head>
+<body th:with="findTrainParameters=@{(goingTo=${param.goingTo},departureDate=${param.departureDate}, departureTime=${param.departureTime})}">
+    <!-- HEADER -->
+    <div th:replace="fragments/header :: header"></div>
+    <!-- HEADER -->
+    <p class="mt-5"> Invoice</p>
+
+    <!-- FOOTER -->
+    <div th:replace="fragments/footer :: footer"></div>
+    <!-- FOOTER -->
+    <th:block th:insert="~{fragments/staticImports :: scriptImports}"> </th:block>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+</body>
+</html>

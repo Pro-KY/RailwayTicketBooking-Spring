@@ -21,4 +21,10 @@ public class View {
     @Value("${adminUsers}")
     public String adminUsers;
 
+    @Value("${trainBooking}")
+    public String trainBooking;
+
+    @Value("${invoice}")
+    public String invoice;
+
 }

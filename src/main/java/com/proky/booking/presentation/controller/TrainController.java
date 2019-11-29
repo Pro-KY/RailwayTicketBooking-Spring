@@ -2,6 +2,7 @@ package com.proky.booking.presentation.controller;
 
 import com.proky.booking.dto.PageDto;
 import com.proky.booking.dto.TrainBookingDto;
+import com.proky.booking.dto.TrainDto;
 import com.proky.booking.service.StationService;
 import com.proky.booking.service.TrainService;
 import com.proky.booking.util.constans.http.Attributes;
@@ -19,16 +20,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @AllArgsConstructor
 //@SessionAttributes({Attributes.PAGE_DTO, Attributes.MODEL})
 public class TrainController {
-    private StationService stationService;
     private View view;
     private TrainService trainService;
 
 
     @PostMapping("/find")
     public String findTrain(@RequestParam(name="goingTo") String goingTo,
-                            @RequestParam(name="departureDate") String departureDate,
-                            @RequestParam(name="departureTime") String departureTime,
-                                  RedirectAttributes attributes) {
+        @RequestParam(name="departureDate") String departureDate,
+        @RequestParam(name="departureTime") String departureTime,
+        RedirectAttributes attributes) {
 
         log.info("POST findTrain is called");
         final PageDto actualPageDto = new PageDto();
@@ -45,16 +45,17 @@ public class TrainController {
     }
 
     @GetMapping("/find")
-    public String findTrain(@RequestParam(name="pageSize") Integer pageSize,
-                            @RequestParam(required = false) Boolean prevPageClick,
-                            @RequestParam(required = false) Boolean nextPageClick,
-                            @RequestParam(required = false) Integer pageIndex,
-                            @RequestParam(name="goingTo") String goingTo,
-                            @RequestParam(name="departureDate") String departureDate,
-                            @RequestParam(name="departureTime") String departureTime,
-                            Model model) {
+    public String findTrainsUsingPagination(
+        @RequestParam(name="pageSize") Integer pageSize,
+        @RequestParam(required = false) Boolean prevPageClick,
+        @RequestParam(required = false) Boolean nextPageClick,
+        @RequestParam(required = false) Integer pageIndex,
+        @RequestParam(name="goingTo") String goingTo,
+        @RequestParam(name="departureDate") String departureDate,
+        @RequestParam(name="departureTime") String departureTime,
+        Model model) {
 
-        log.info("find train GET");
+        log.info("find trains GET");
         final PageDto actualPageDto = new PageDto(pageIndex, pageSize, nextPageClick, prevPageClick);
         final PageDto updatedPageDto = trainService.findTrains(actualPageDto, departureDate, departureTime, goingTo);
         log.info(actualPageDto);
@@ -68,9 +69,11 @@ public class TrainController {
     }
 
     @GetMapping("/bookingPage")
-    public String bookingPage(@RequestParam Integer trainId, Model model) {
-        log.info(trainId);
+    public String bookingPage(@RequestParam Long trainId, Model model) {
+        final TrainDto trainDto = trainService.findTrainById(trainId);
+        log.info(trainDto);
 
+        model.addAttribute(Attributes.TRAIN, trainDto);
         model.addAttribute(Attributes.TRAIN_BOOKING, new TrainBookingDto());
         return view.trainBooking;
     }

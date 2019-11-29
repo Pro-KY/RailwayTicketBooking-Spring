@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 <div class="col-md-8 mt-5">
-                    <table class="table">
+                    <table class="table" th:object="${train}">
                         <thead>
                         <tr>
                             <th scope="col" th:text="#{table.header.train}"></th>
@@ -46,10 +46,10 @@
                         </thead>
                         <tbody>
                         <tr class="table-row">
-                            <td>${train.trainId} ${train.trainType}</td>
-                            <td th:text="${#messages.msg(#strings.concat('station.', train?.departureStationId))} + '-' + ${#messages.msg(#strings.concat('station.', train?.arrivalStationId))}"></td>
-                            <td> <span th:text="${train?.routeDepartureDate}"></span> <br> <span th:text="${train?.routeArrivalDate}"></span></td>
-                            <td> <span th:text="${train?.routeDepartureTime}"></span> <br> <span th:text="${train?.routeArrivalTime}"></span></td>
+                            <td><span th:text="*{trainId}"> </span>  <span th:text="*{trainType}"></span></td>
+                            <td th:text="${#messages.msg(#strings.concat('station.', train.departureStationId))} + '-' + ${#messages.msg(#strings.concat('station.', train.arrivalStationId))}"></td>
+                            <td> <span th:text="*{routeDepartureDate}"></span> <br> <span th:text="*{routeArrivalDate}"></span></td>
+                            <td> <span th:text="*{routeDepartureTime}"></span> <br> <span th:text="*{routeArrivalTime}"></span></td>
                         </tr>
                         </tbody>
                     </table>

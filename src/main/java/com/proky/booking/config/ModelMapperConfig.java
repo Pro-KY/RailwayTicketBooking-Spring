@@ -22,8 +22,8 @@ public class ModelMapperConfig {
             @Override
             protected void configure() {
                 map().setTrainId(source.getId());
-                map().setArrivalStationName(source.getRoute().getArrivalStation().getName());
-                map().setDepartureStationName(source.getRoute().getDepartureStation().getName());
+                map().setArrivalStationId(source.getRoute().getArrivalStation().getId());
+                map().setDepartureStationId(source.getRoute().getDepartureStation().getId());
             }
         };
     }

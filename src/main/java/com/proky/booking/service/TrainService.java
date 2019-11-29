@@ -3,10 +3,12 @@ package com.proky.booking.service;
 import com.proky.booking.dto.PageDto;
 import com.proky.booking.dto.StationDto;
 import com.proky.booking.dto.TrainDto;
+import com.proky.booking.exception.ServiceException;
 import com.proky.booking.persistence.dao.ITrainDao;
 import com.proky.booking.persistence.entities.Station;
 import com.proky.booking.persistence.entities.Train;
 import com.proky.booking.util.SqlDateTimeConverter;
+import com.proky.booking.util.properties.Message;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
@@ -30,6 +32,7 @@ public class TrainService {
     private SqlDateTimeConverter sqlDateTimeConverter;
     private StationService stationService;
     private ModelMapper modelMapper;
+    private Message messages;
 
     @Transactional
     public PageDto findTrains(final PageDto pageDto, String requestDate, String requestTime, String stationId) {
@@ -53,6 +56,11 @@ public class TrainService {
         paginationService.updatePageDto();
 
         return paginationService.getpageDto();
+    }
+
+    public TrainDto findTrainById(Long id) {
+        final Train train = trainDao.findById(id).orElseThrow(() -> new ServiceException(messages.notFoundEntity));
+        return modelMapper.map(train, TrainDto.class);
     }
 
     @Lookup

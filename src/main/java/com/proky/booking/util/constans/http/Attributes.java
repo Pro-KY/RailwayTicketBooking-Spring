@@ -31,5 +31,6 @@ public class Attributes {
 
     public static final String STATIONS = "stations";
     public static final String TRAIN_BOOKING = "trainBooking";
+    public static final String TRAIN = "train";
 
 }

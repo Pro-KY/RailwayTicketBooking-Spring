@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>SignIn</title>
+    <th:block th:insert="~{fragments/staticImports :: headImports}"> </th:block>
+</head>
+<body>
+    <!-- HEADER -->
+    <div th:replace="fragments/header :: header"></div>
+    <!-- HEADER -->
+
+    <!--MAIN CONTENT-->
+    <div class="container float-left ml-3 mt-5 pt-4">
+        <form name="userCredentials" method="POST" th:action ="@{/admin/manageUser}">
+
+            <div class="row" th:object="${user}">
+                <div class="col-md-6">
+                    <table class="table table-borderless">
+                        <tr class="table-row">
+                            <td class="ml-n1" th:text="#{user.id}"></td>
+                            <td><input type="text" class="form-control" th:value="*{id}" disabled></td>
+                        </tr>
+                        <tr class="table-row">
+                            <td class="ml-n1" th:text="#{user.firstName}"></td>
+                            <td><input type="text" class="form-control" th:value="*{firstName}"></td>
+                        </tr>
+                        <tr class="table-row">
+                            <td class="ml-n1" th:text="#{user.lastName}"></td>
+                            <td><input type="text" class="form-control" th:value="*{lastName}"></td>
+                        </tr>
+                        <tr class="table-row">
+                            <td class="ml-n1" th:text="#{user.email}"></td>
+                            <td><input type="text" class="form-control" th:value="*{email}"></td>
+                        </tr>
+                        <tr class="table-row">
+                            <td class="ml-n1" th:text="#{user.new.password}">
+                            <td><input type="text" class="form-control" th:value="*{newPassword}"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-6"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-2"><button class="btn btn-primary" type="submit" th:text="#{user.update}"> </button></div>
+                <div class="col-md-2 ml-3"><a class="btn btn-danger" th:href="@{/admin/deleteUser/{id}(id=${user.id})}" role="button" th:text="#{user.delete}"></a></div>
+                <div class="col-md-8"></div>
+            </div>
+        </form>
+    </div>
+    <!--MAIN CONTENT-->
+
+    <!-- FOOTER -->
+    <div th:replace="fragments/footer :: footer"></div>
+    <!-- FOOTER -->
+    <th:block th:insert="~{fragments/staticImports :: scriptImports}"> </th:block>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+</body>
+</html>

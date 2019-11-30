@@ -39,7 +39,7 @@
 
                 <tbody>
                     <th:block th:if="${pageDto != null}">
-                        <tr class="table-row clickable-row" th:each="user : ${pageDto.pageList}" th:href="@{/admin/manageUser(userId=${user.id})}" >
+                        <tr class="table-row clickable-row" th:each="user : ${pageDto.pageList}" th:attr="data-href=@{/admin/manageUser(userId=${user.id})}" >
                             <td th:text="${user.id}"></td>
                             <td th:text="${user.firstName}"></td>
                             <td th:text="${user.lastName}"></td>

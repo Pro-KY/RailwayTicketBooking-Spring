@@ -1,5 +1,7 @@
 package com.proky.booking.persistence.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,7 +11,9 @@ import java.util.Objects;
 @Entity
 @Table(name = "user", schema = "railway_ticket_booking_spring")
 @Data
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

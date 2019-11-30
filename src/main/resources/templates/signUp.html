@@ -14,23 +14,23 @@
             <div class="col-sm-6 col-md-4">
                 <div class="card border-info">
                     <div class="card-body">
-                        <form name="SignUpForm" method="POST" th:action="@{/user/signUp/}">
+                        <form name="SignUpForm" method="POST" action="#" th:action="@{/user/signUp/}" th:object="${user}">
 
                             <div class="form-group">
                                 <label class="ml-3" for="firstName" th:text="#{user.firstName}"></label>
-                                <input type="text" required class="form-control m-1" th:placeholder="#{user.firstName}" id="firstName" name="firstName">
+                                <input type="text" required class="form-control m-1" th:placeholder="#{user.firstName}" id="firstName" th:field="*{firstName}" name="firstName">
                             </div>
                             <div class=" form-group">
                                 <label class="ml-3" for="lastName" th:text="#{user.lastName}"></label>
-                                <input type="text" required class="form-control m-1" th:placeholder="#{user.firstName}" id="lastName" name="lastName">
+                                <input type="text" required class="form-control m-1" th:placeholder="#{user.firstName}" id="lastName" th:field="*{lastName}" name="lastName">
                             </div>
                             <div class=" form-group">
                                 <label class="ml-3" for="email" th:text="#{user.email}"></label>
-                                <input type="text" required class="form-control m-1" th:placeholder="#{user.email}" id="email" name="email">
+                                <input type="text" required class="form-control m-1" th:placeholder="#{user.email}" id="email" th:field="*{email}" name="email">
                             </div>
                             <div class=" form-group">
                                 <label class="ml-3" for="password" th:text="#{user.password}"></label>
-                                <input type="password" required class="form-control m-1" th:placeholder="#{user.password}" id="password" name="password">
+                                <input type="password" required class="form-control m-1" th:placeholder="#{user.password}" th:field="*{password}" id="password" name="password">
                             </div>
 
                             <div class="row justify-content-center">

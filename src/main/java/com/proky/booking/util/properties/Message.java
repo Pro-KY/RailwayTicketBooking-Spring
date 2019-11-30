@@ -15,18 +15,21 @@ import java.util.ResourceBundle;
 @Component
 public class Message {
     private  final String fileName = "message";
-    private  final String USER_EXIST = "USER_EXIST";
     private  final String NOT_VALID_PROPERTY = "NOT_VALID_PROPERTY";
 
     @Value("${notFoundEntity}")
     public String notFoundEntity;
 
-    private  final String TRANSACTION_ERROR = "TRANSACTION_ERROR";
     @Value("${authorizationError}")
     public String authorizationError;
+
+    @Value("${userExist}")
+    public String userExist;
 
     private  final String USER_UPDATED = "USER_UPDATED";
     private  final String USER_DELETED = "USER_DELETED";
     private  final String USER_CREATED = "USER_CREATED";
+
+    private  final String TRANSACTION_ERROR = "TRANSACTION_ERROR";
 
 }

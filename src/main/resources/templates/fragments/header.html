@@ -14,7 +14,7 @@
                 </div>
                 <span class="navbar-text mr-3">
                     <span th:text="#{header.greeting}"></span>,
-                    <span th:if="${session.user ne null}" th:text="(*{firstName}+' '+ *{lastName})"></span>
+                    <span th:if="${session.user ne null}" th:text="|*{firstName} *{lastName}|"></span>
                     <span th:unless="${session.user ne null}" th:text="#{header.guest}"></span>
                 </span>
 

@@ -1,8 +1,10 @@
 package com.proky.booking.presentation.controller;
 
+import com.proky.booking.dto.TrainBookingDto;
 import com.proky.booking.dto.UserDto;
 import com.proky.booking.persistence.entities.User;
 import com.proky.booking.service.SignInService;
+import com.proky.booking.service.SignUpService;
 import com.proky.booking.service.UserService;
 import com.proky.booking.util.constans.http.Attributes;
 import com.proky.booking.util.properties.View;
@@ -28,6 +30,7 @@ import java.util.Optional;
 public class UserController {
     private View view;
     private SignInService signInService;
+    private SignUpService signUpService;
     private UserService userService;
     private ModelMapper modelMapper;
 
@@ -37,7 +40,8 @@ public class UserController {
     }
 
     @GetMapping("/signUpPage")
-    public String signUpPage() {
+    public String signUpPage(Model model) {
+        model.addAttribute(Attributes.USER, new UserDto());
         return view.signUp;
     }
 
@@ -59,7 +63,10 @@ public class UserController {
     }
 
     @PostMapping("/signUp")
-    public String singUp() {
+    public String singUp(@ModelAttribute UserDto userDto) {
+        log.info(userDto);
+
+        signUpService.signUp(userDto);
         return view.signIn;
     }
 

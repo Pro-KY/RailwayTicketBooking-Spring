@@ -4,11 +4,12 @@
     <title>SignIn</title>
     <th:block th:insert="~{fragments/staticImports :: headImports}"> </th:block>
 </head>
-<body th:with="findTrainParameters=@{(goingTo=${param.goingTo},departureDate=${param.departureDate}, departureTime=${param.departureTime})}">
+<body>
     <!-- HEADER -->
     <div th:replace="fragments/header :: header"></div>
     <!-- HEADER -->
     <p class="mt-5"> Invoice</p>
+    <p th:text="${invoiceDto}"></p>
 
     <!-- FOOTER -->
     <div th:replace="fragments/footer :: footer"></div>

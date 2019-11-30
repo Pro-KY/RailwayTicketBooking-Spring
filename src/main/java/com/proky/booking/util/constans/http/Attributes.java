@@ -13,6 +13,7 @@ public class Attributes {
     public static final String ALERT_MESSAGE = "alertMessage";
 
     public static final String PAGE_DTO = "pageDto";
+    public static final String INVOICE_DTO = "invoiceDto";
     public static final String ERROR_DATA = "errorData";
 
     public static final String GOING_TO = "goingTo";

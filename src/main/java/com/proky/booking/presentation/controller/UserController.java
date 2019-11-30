@@ -52,10 +52,10 @@ public class UserController {
         log.info(userDto);
         userDto.setAdministrator(isAdministrator);
 
-        String viewPathUrl = isAdministrator ? view.adminUsers : view.index;
+        String viewhUrl = isAdministrator ? view.adminUsers : "trains";
         model.addAttribute(Attributes.USER, userDto);
 
-        return "redirect:/" + viewPathUrl;
+        return "redirect:/" + viewhUrl;
     }
 
     @PostMapping("/signUp")

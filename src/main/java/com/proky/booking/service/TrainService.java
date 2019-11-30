@@ -58,9 +58,13 @@ public class TrainService {
         return paginationService.getpageDto();
     }
 
-    public TrainDto findTrainById(Long id) {
-        final Train train = trainDao.findById(id).orElseThrow(() -> new ServiceException(messages.notFoundEntity));
+    public TrainDto getTrainDtoById(Long id) {
+        final Train train = findTrainById(id);
         return modelMapper.map(train, TrainDto.class);
+    }
+
+    public Train findTrainById(Long id) {
+        return trainDao.findById(id).orElseThrow(() -> new ServiceException(messages.notFoundEntity));
     }
 
     @Lookup

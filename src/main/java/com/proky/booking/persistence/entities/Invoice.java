@@ -1,5 +1,7 @@
 package com.proky.booking.persistence.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +14,8 @@ import java.util.Objects;
 @Table(name = "invoice", schema = "railway_ticket_booking_spring")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Invoice {
 
     @Id

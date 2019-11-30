@@ -3,7 +3,6 @@ package com.proky.booking.presentation.controller;
 import com.proky.booking.dto.PageDto;
 import com.proky.booking.dto.TrainBookingDto;
 import com.proky.booking.dto.TrainDto;
-import com.proky.booking.service.StationService;
 import com.proky.booking.service.TrainService;
 import com.proky.booking.util.constans.http.Attributes;
 import com.proky.booking.util.properties.View;
@@ -70,7 +69,7 @@ public class TrainController {
 
     @GetMapping("/bookingPage")
     public String bookingPage(@RequestParam Long trainId, Model model) {
-        final TrainDto trainDto = trainService.findTrainById(trainId);
+        final TrainDto trainDto = trainService.getTrainDtoById(trainId);
         log.info(trainDto);
 
         model.addAttribute(Attributes.TRAIN, trainDto);

@@ -67,6 +67,10 @@ public class UserService {
         return paginationService.getpageDto();
     }
 
+    public User findById(Long id) {
+        return userDao.findById(id).orElseThrow(() -> new ServiceException(message.notFoundEntity));
+    }
+
     @Lookup
     public PaginationService getProxyPaginationService() {
         log.info("paginationService called");

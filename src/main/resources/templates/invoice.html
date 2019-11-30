@@ -8,8 +8,45 @@
     <!-- HEADER -->
     <div th:replace="fragments/header :: header"></div>
     <!-- HEADER -->
-    <p class="mt-5"> Invoice</p>
-    <p th:text="${invoiceDto}"></p>
+
+    <div class="container float-left pt-4 ml-3 mt-5">
+        <div class="row" th:object="${invoiceDto}">
+            <div class="col-md-9">
+                <table class="table">
+                    <tr class="table-row">
+                        <td th:text="|#{user.firstName} #{user.lastName}|"></td>
+                        <td th:text="|*{userFirstName} *{userLastName}|"></td>
+                    </tr>
+                    <tr class="table-row">
+                        <td th:text="#{table.header.route}"></td>
+                        <td th:text="${#messages.msg(#strings.concat('station.', invoiceDto.departureStationId))} +'-'+ ${#messages.msg(#strings.concat('station.', invoiceDto.arrivalStationId))}"></td>
+                    </tr>
+                    <tr class="table-row">
+                        <td th:text="#{table.header.train}"></td>
+                        <td th:text="|*{trainId} *{trainType}|"></td>
+                    </tr>
+                    <tr class="table-row">
+                        <td th:text="|#{invoice.departure} #{table.header.date} /  #{table.header.time}|"></td>
+                        <td th:text="|*{routeDepartureDate} / *{routeDepartureTime}|"></td>
+                    </tr>
+                    <tr class="table-row">
+                        <td th:text="|#{invoice.arrival} #{table.header.date}  /  #{table.header.time}|"></td>
+                        <td th:text="|*{routeArrivalDate} /  *{routeArrivalTime}|"></td>
+                    </tr>
+                    <tr class="table-row">
+                        <td th:text="#{invoice.seats.amount}"></td>
+                        <td th:text="*{seatsAmount}"></td>
+                    </tr>
+                    <tr class="table-row">
+                        <td th:text="#{invoice.sum}"></td>
+                        <td th:text="*{sum}"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </div>
+
 
     <!-- FOOTER -->
     <div th:replace="fragments/footer :: footer"></div>

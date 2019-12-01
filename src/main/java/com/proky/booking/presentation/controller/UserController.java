@@ -5,7 +5,9 @@ import com.proky.booking.persistence.entities.User;
 import com.proky.booking.service.SignInService;
 import com.proky.booking.service.SignUpService;
 import com.proky.booking.service.UserService;
+import com.proky.booking.util.AlertHandler;
 import com.proky.booking.util.constans.http.Attributes;
+import com.proky.booking.util.properties.Message;
 import com.proky.booking.util.properties.ViewPath;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotBlank;
@@ -29,6 +32,8 @@ public class UserController {
     private SignUpService signUpService;
     private UserService userService;
     private ModelMapper modelMapper;
+    private AlertHandler alertHandler;
+    private Message message;
 
     @GetMapping("/signInPage")
     public String signInPage() {
@@ -59,11 +64,11 @@ public class UserController {
     }
 
     @PostMapping("/signUp")
-    public String singUp(@ModelAttribute UserDto userDto) {
+    public String singUp(@ModelAttribute UserDto userDto, RedirectAttributes redirectAttributes) {
         log.info(userDto);
-
         signUpService.signUp(userDto);
-        return viewPath.signIn;
+        alertHandler.setAlertData(true, message.userCreated, redirectAttributes);
+        return "redirect:/" + viewPath.signIn;
     }
 
     @GetMapping("/signOut")

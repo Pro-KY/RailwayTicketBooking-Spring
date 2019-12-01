@@ -1,7 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head></head>
 <body>
     <th:block th:fragment="footer">
+
+        <div class="container-fluid mb-4 fixed-bottom">
+            <!-- ALERT -->
+            <th:block th:if="${((alertSuccess ?: false) or (alertError ?: false)) or (validation ne null)}">
+                <th:block th:insert="~{fragments/alert :: alert}"> </th:block>
+            </th:block>
+            <!-- ALERT -->
+        </div>
+
+<!--        <p th:text="${alertSuccess}"></p>-->
+<!--        <p th:text="${alertError}"></p>-->
+<!--        <p th:text="${alertMessage}"></p>-->
+
         <div class="container-fluid p-2 fixed-bottom" id="footer">
             <div class="row">
                 <div class="col-4 d-flex justify-content-start">

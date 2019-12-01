@@ -3,13 +3,16 @@ package com.proky.booking.presentation.controller;
 import com.proky.booking.dto.PageDto;
 import com.proky.booking.dto.UserDto;
 import com.proky.booking.service.UserService;
+import com.proky.booking.util.AlertHandler;
 import com.proky.booking.util.constans.http.Attributes;
+import com.proky.booking.util.properties.Message;
 import com.proky.booking.util.properties.ViewPath;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Log4j2
 @RequestMapping("/admin")
@@ -18,6 +21,8 @@ import org.springframework.web.bind.annotation.*;
 public class AdminController {
     private ViewPath viewPath;
     private UserService userService;
+    private AlertHandler alertHandler;
+    private Message message;
 
     @RequestMapping("/users")
     public String getRegisteredUsers(@RequestParam(required = false) Integer pageIndex,
@@ -44,15 +49,17 @@ public class AdminController {
     }
 
     @PostMapping("/updateUser")
-    public String updateUser(@ModelAttribute UserDto userDto) {
+    public String updateUser(@ModelAttribute UserDto userDto, RedirectAttributes redirectAttributes) {
         log.info(userDto);
         userService.updateUser(userDto);
+        alertHandler.setAlertData(true, message.userUpdated, redirectAttributes);
 
         return "redirect:/" + viewPath.allUsers;
     }
 
-    @GetMapping("/deleteUser/{id}")
-    public String deleteUser(@PathVariable Long id) {
+    @GetMapping("/deleteUser/{id}") // String
+    public String deleteUser(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        alertHandler.setAlertData(true, message.userDeleted, redirectAttributes);
         userService.deleteUser(id);
         return "redirect:/" + viewPath.allUsers;
     }

@@ -26,5 +26,4 @@ public class IndexController {
         log.info("indexPage called");
         return viewPath.index;
     }
-
 }

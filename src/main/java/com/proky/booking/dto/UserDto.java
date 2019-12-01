@@ -13,6 +13,7 @@ public class UserDto implements Serializable {
    private String lastName;
    @NonNull private String email;
    @NonNull private String password;
+   private String newPassword;
    private String userTypeId;
    private boolean isAdministrator;
 }

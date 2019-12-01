@@ -11,30 +11,30 @@
 
     <!--MAIN CONTENT-->
     <div class="container float-left ml-3 mt-5 pt-4">
-        <form name="userCredentials" method="POST" th:action ="@{/admin/manageUser}">
-
-            <div class="row" th:object="${user}">
+        <form name="userCredentials" method="POST" th:action ="@{/admin/updateUser}" th:object="${user}">
+            <div class="row">
                 <div class="col-md-6">
                     <table class="table table-borderless">
+
                         <tr class="table-row">
-                            <td class="ml-n1" th:text="#{user.id}"></td>
-                            <td><input type="text" class="form-control" th:value="*{id}" disabled></td>
+                            <td th:text="#{user.id}"></td>
+                            <td><input type="text" class="form-control" th:value="*{id}" th:field="*{id}" readonly="readonly"></td>
                         </tr>
                         <tr class="table-row">
-                            <td class="ml-n1" th:text="#{user.firstName}"></td>
-                            <td><input type="text" class="form-control" th:value="*{firstName}"></td>
+                            <td th:text="#{user.firstName}"></td>
+                            <td><input type="text" class="form-control" th:value="*{firstName}" th:field="*{firstName}"></td>
                         </tr>
                         <tr class="table-row">
-                            <td class="ml-n1" th:text="#{user.lastName}"></td>
-                            <td><input type="text" class="form-control" th:value="*{lastName}"></td>
+                            <td th:text="#{user.lastName}"></td>
+                            <td><input type="text" class="form-control" th:value="*{lastName}" th:field="*{lastName}"></td>
                         </tr>
                         <tr class="table-row">
-                            <td class="ml-n1" th:text="#{user.email}"></td>
-                            <td><input type="text" class="form-control" th:value="*{email}"></td>
+                            <td th:text="#{user.email}"></td>
+                            <td><input type="text" class="form-control" th:value="*{email}" th:field="*{email}"></td>
                         </tr>
                         <tr class="table-row">
-                            <td class="ml-n1" th:text="#{user.new.password}">
-                            <td><input type="text" class="form-control" th:value="*{newPassword}"></td>
+                            <td th:text="#{user.new.password}">
+                            <td><input type="text" class="form-control" th:value="*{newPassword}" th:field="*{newPassword}"></td>
                         </tr>
                     </table>
                 </div>

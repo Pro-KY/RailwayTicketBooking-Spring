@@ -1,6 +1,7 @@
 package com.proky.booking.presentation.controller;
 
 import com.proky.booking.dto.PageDto;
+import com.proky.booking.dto.UserDto;
 import com.proky.booking.service.UserService;
 import com.proky.booking.util.constans.http.Attributes;
 import com.proky.booking.util.properties.View;
@@ -8,9 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Log4j2
 @RequestMapping("/admin")
@@ -37,8 +36,24 @@ public class AdminController {
     }
 
     @GetMapping("/manageUser")
-    public String manageUser(Model model) {
-        return null;
+    public String manageUser(@RequestParam Long userId,  Model model) {
+        final UserDto userDto = userService.getUserDtoById(userId);
+        log.info(userDto);
+        model.addAttribute(Attributes.USER, userDto);
+        return "/admin/manageUser";
     }
 
+    @PostMapping("/updateUser")
+    public String updateUser(@ModelAttribute UserDto userDto) {
+        log.info(userDto);
+        userService.updateUser(userDto);
+
+        return "redirect:/" + view.adminUsers;
+    }
+
+    @GetMapping("/deleteUser/{id}")
+    public String deleteUser(@PathVariable Long id, Model model) {
+        log.info(id);
+        return "/admin/users";
+    }
 }

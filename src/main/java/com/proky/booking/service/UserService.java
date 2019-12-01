@@ -7,6 +7,7 @@ import com.proky.booking.persistence.dao.IUserDao;
 import com.proky.booking.persistence.dao.IUserTypeDao;
 import com.proky.booking.persistence.entities.User;
 import com.proky.booking.persistence.entities.UserType;
+import com.proky.booking.util.PasswordEncryptor;
 import com.proky.booking.util.constans.enums.UserTypeEnum;
 import com.proky.booking.util.properties.Message;
 import lombok.AllArgsConstructor;
@@ -32,6 +33,7 @@ public class UserService {
     private IUserDao userDao;
     private Message message;
     private ModelMapper modelMapper;
+    private PasswordEncryptor passwordEncryptor;
 
     public boolean isAdministrator(User authenticatedUser) {
         final UserType userType = authenticatedUser.getUserType();
@@ -41,6 +43,27 @@ public class UserService {
                 .orElseThrow(() -> new ServiceException(message.notFoundEntity));
 
         return userType.equals(adminUserType);
+    }
+
+    @Transactional
+    public void updateUser(UserDto userDto) {
+        final User user = findUserById(Long.parseLong(userDto.getId()));
+
+        user.setFirstName(userDto.getFirstName());
+        user.setLastName(userDto.getLastName());
+        user.setEmail(userDto.getEmail());
+
+        if (isNewPasswordPresent(userDto)) {
+            final String encryptedPassword = passwordEncryptor.encrypt(userDto.getNewPassword());
+            user.setPassword(encryptedPassword);
+        }
+
+        userDao.update(user);
+    }
+
+    private boolean isNewPasswordPresent(UserDto userDto) {
+        final String newPassword = userDto.getNewPassword();
+        return newPassword != null && !newPassword.isEmpty();
     }
 
     public PageDto findAllRegisteredUsers(PageDto pageDto) {
@@ -67,8 +90,13 @@ public class UserService {
         return paginationService.getpageDto();
     }
 
-    public User findById(Long id) {
+    public User findUserById(Long id) {
         return userDao.findById(id).orElseThrow(() -> new ServiceException(message.notFoundEntity));
+    }
+
+    public UserDto getUserDtoById(Long id) {
+        final User user = findUserById(id);
+        return modelMapper.map(user, UserDto.class);
     }
 
     @Lookup

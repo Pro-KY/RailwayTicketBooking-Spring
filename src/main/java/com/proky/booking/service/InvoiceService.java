@@ -4,12 +4,9 @@ import com.proky.booking.dto.InvoiceDto;
 import com.proky.booking.dto.TrainBookingDto;
 import com.proky.booking.dto.TrainDto;
 import com.proky.booking.persistence.dao.IInvoiceDao;
-import com.proky.booking.persistence.dao.IUserDao;
 import com.proky.booking.persistence.entities.Invoice;
 import com.proky.booking.persistence.entities.Train;
 import com.proky.booking.persistence.entities.User;
-import com.proky.booking.util.PasswordEncryptor;
-import com.proky.booking.util.properties.Message;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -51,7 +48,7 @@ public class InvoiceService {
 
     @Transactional
     public void saveInvoice(final InvoiceDto invoiceDto) {
-        final User user = userService.findById(invoiceDto.getUserId());
+        final User user = userService.findUserById(invoiceDto.getUserId());
         final Train train = trainService.findTrainById(invoiceDto.getTrainId());
 
         final Invoice invoice = Invoice.builder()

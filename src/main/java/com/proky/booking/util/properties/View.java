@@ -30,4 +30,10 @@ public class View {
     @Value("${invoice}")
     public String invoice;
 
+    @Value("${errorRuntime}")
+    public String errorRuntime;
+
+    @Value("${errorNotFound}")
+    public String errorNotFound;
+
 }

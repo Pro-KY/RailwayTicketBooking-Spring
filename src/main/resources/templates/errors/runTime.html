@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Title</title>
+    <th:block th:insert="~{fragments/staticImports :: headImports}"> </th:block>
+</head>
+<body>
+    <div class="container d-flex flex-column h-100">
+        <div class="jumbotron mt-4 pb-4 text-center">
+            <h1 class="display-4 text-danger">Oops.. An error occured! </h1>
+
+            <p class="lead">Request from URI is failed: ${requestURI} </p>
+            <p class="lead" th:text="|Servlet name: ${servletName}|"></p>
+            <p class="lead" th:text="|Status code: ${statusCode}|"></p>
+            <p class="lead" th:if="${not empty exceptionName and exceptionName ne 'null'}">
+                Exception: <span th:text="${exceptionName}"></span>
+            </p>
+            <p class="lead" th:if="${not empty exceptionMessage and exceptionMessage ne 'null'}">
+                Message: <span th:text="${exceptionMessage}"></span>
+            </p>
+            <hr class="my-4">
+            <a class="btn btn-primary font-weight-bold" th:href="@{/trains}" role="button">
+                Home page
+            </a>
+        </div>
+    </div>
+    <th:block th:insert="~{fragments/staticImports :: scriptImports}"> </th:block>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+</body>
+</html>

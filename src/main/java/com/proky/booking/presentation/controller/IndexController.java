@@ -3,7 +3,7 @@ package com.proky.booking.presentation.controller;
 import com.proky.booking.persistence.entities.Station;
 import com.proky.booking.service.StationService;
 import com.proky.booking.util.constans.http.Attributes;
-import com.proky.booking.util.properties.View;
+import com.proky.booking.util.properties.ViewPath;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -17,13 +17,14 @@ import java.util.List;
 @AllArgsConstructor
 public class IndexController {
     private StationService stationService;
-    private View view;
+    private ViewPath viewPath;
 
     @RequestMapping(path = {"/", "/trains"})
     public String indexPage(Model model) {
         final List<Station> allStations = stationService.findAllStations();
         model.addAttribute(Attributes.STATIONS, allStations);
         log.info("indexPage called");
-        return view.index;
+        return viewPath.index;
     }
+
 }

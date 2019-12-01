@@ -6,7 +6,7 @@ import com.proky.booking.service.SignInService;
 import com.proky.booking.service.SignUpService;
 import com.proky.booking.service.UserService;
 import com.proky.booking.util.constans.http.Attributes;
-import com.proky.booking.util.properties.View;
+import com.proky.booking.util.properties.ViewPath;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
@@ -24,7 +24,7 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 @SessionAttributes(Attributes.USER)
 public class UserController {
-    private View view;
+    private ViewPath viewPath;
     private SignInService signInService;
     private SignUpService signUpService;
     private UserService userService;
@@ -32,13 +32,13 @@ public class UserController {
 
     @GetMapping("/signInPage")
     public String signInPage() {
-        return view.signIn;
+        return viewPath.signIn;
     }
 
     @GetMapping("/signUpPage")
     public String signUpPage(Model model) {
         model.addAttribute(Attributes.USER, new UserDto());
-        return view.signUp;
+        return viewPath.signUp;
     }
 
     @PostMapping("/signIn")
@@ -52,7 +52,7 @@ public class UserController {
         log.info(userDto);
         userDto.setAdministrator(isAdministrator);
 
-        String viewhUrl = isAdministrator ? view.allUsers : "trains";
+        String viewhUrl = isAdministrator ? viewPath.allUsers : "trains";
         model.addAttribute(Attributes.USER, userDto);
 
         return "redirect:/" + viewhUrl;
@@ -63,7 +63,7 @@ public class UserController {
         log.info(userDto);
 
         signUpService.signUp(userDto);
-        return view.signIn;
+        return viewPath.signIn;
     }
 
     @GetMapping("/signOut")

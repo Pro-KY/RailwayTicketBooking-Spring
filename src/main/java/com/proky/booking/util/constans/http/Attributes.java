@@ -27,8 +27,10 @@ public class Attributes {
     public static final String ERROR_REQUEST_URI = "requestURI";
     public static final String ERROR_SERVLET_NAME = "servletName";
     public static final String ERROR_STATUS_CODE = "statusCode";
-    public static final String ERROR_EXCEPTION_NAME = "exceptionName";
-    public static final String ERROR_EXCEPTION_MSG = "exceptionMessage";
+//    public static final String ERROR_EXCEPTION_NAME = "exceptionName";
+    public static final String ERROR_EXCEPTION_NAME = "exception";
+//    public static final String ERROR_EXCEPTION_MSG = "exceptionMessage";
+    public static final String ERROR_EXCEPTION_MSG = "message";
 
     public static final String STATIONS = "stations";
     public static final String TRAIN_BOOKING = "trainBooking";

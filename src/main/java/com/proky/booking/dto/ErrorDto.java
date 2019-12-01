@@ -1,7 +1,6 @@
 package com.proky.booking.dto;
 
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,17 +8,20 @@ import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
-public class ErrorData implements Serializable {
+public class ErrorDto implements Serializable {
     private String requestURI;
     private String servletName;
     private Integer statusCode;
     private String exceptionName;
     private String exceptionMessage;
 
-    public ErrorData(HttpServletRequest request) {
+    public ErrorDto(HttpServletRequest request) {
         Throwable throwable = (Throwable) request.getAttribute("javax.servlet.error.exception");
-        exceptionName = throwable.getClass().getName();
-        exceptionMessage = throwable.getMessage();
+
+        if (throwable != null) {
+            exceptionName = throwable.getClass().getName();
+            exceptionMessage = throwable.getMessage();
+        }
 
         statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
 

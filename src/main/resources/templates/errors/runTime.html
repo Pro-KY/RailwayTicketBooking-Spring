@@ -9,14 +9,23 @@
         <div class="jumbotron mt-4 pb-4 text-center">
             <h1 class="display-4 text-danger">Oops.. An error occured! </h1>
 
-            <p class="lead">Request from URI is failed: ${requestURI} </p>
-            <p class="lead" th:text="|Servlet name: ${servletName}|"></p>
-            <p class="lead" th:text="|Status code: ${statusCode}|"></p>
-            <p class="lead" th:if="${not empty exceptionName and exceptionName ne 'null'}">
-                Exception: <span th:text="${exceptionName}"></span>
+            <p class="lead" th:if="${path != null}">
+                Request from URI is failed: <span th:text="${path}"></span>
             </p>
-            <p class="lead" th:if="${not empty exceptionMessage and exceptionMessage ne 'null'}">
-                Message: <span th:text="${exceptionMessage}"></span>
+
+            <p class="lead" th:if="${error != null}">
+                Error: <span th:text="${error}"></span>
+            </p>
+
+            <p class="lead" th:if="${status != null}">
+                Status code: <span th:text="${status}"></span>
+            </p>
+
+            <p class="lead" th:if="${exception != null}">
+                Exception: <span th:text="${exception}"></span>
+            </p>
+            <p class="lead" th:if="${message != null}">
+                Message: <span th:text="${message}"></span>
             </p>
             <hr class="my-4">
             <a class="btn btn-primary font-weight-bold" th:href="@{/trains}" role="button">
@@ -28,3 +37,24 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 </body>
 </html>
+
+
+<!--<div class="container d-flex flex-column h-100">-->
+<!--    <div class="jumbotron mt-4 pb-4 text-center">-->
+<!--        <h1 class="display-4 text-danger">Oops.. An error occured! </h1>-->
+
+<!--        <p class="lead">Request from URI is failed: ${requestURI} </p>-->
+<!--        <p class="lead" th:text="|Servlet name: ${servletName}|"></p>-->
+<!--        <p class="lead" th:text="|Status code: ${statusCode}|"></p>-->
+<!--        <p class="lead" th:if="${not empty exceptionName and exceptionName ne 'null'}">-->
+<!--            Exception: <span th:text="${exceptionName}"></span>-->
+<!--        </p>-->
+<!--        <p class="lead" th:if="${not empty exceptionMessage and exceptionMessage ne 'null'}">-->
+<!--            Message: <span th:text="${exceptionMessage}"></span>-->
+<!--        </p>-->
+<!--        <hr class="my-4">-->
+<!--        <a class="btn btn-primary font-weight-bold" th:href="@{/trains}" role="button">-->
+<!--            Home page-->
+<!--        </a>-->
+<!--    </div>-->
+<!--</div>-->

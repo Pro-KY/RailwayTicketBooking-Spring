@@ -4,7 +4,7 @@ import com.proky.booking.dto.PageDto;
 import com.proky.booking.dto.UserDto;
 import com.proky.booking.service.UserService;
 import com.proky.booking.util.constans.http.Attributes;
-import com.proky.booking.util.properties.View;
+import com.proky.booking.util.properties.ViewPath;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @AllArgsConstructor
 public class AdminController {
-    private View view;
+    private ViewPath viewPath;
     private UserService userService;
 
     @RequestMapping("/users")
@@ -32,7 +32,7 @@ public class AdminController {
         final PageDto usersPerPage = userService.findAllRegisteredUsers(pageDto);
         model.addAttribute(Attributes.PAGE_DTO, usersPerPage);
 
-        return view.allUsers;
+        return viewPath.allUsers;
     }
 
     @GetMapping("/manageUser")
@@ -40,7 +40,7 @@ public class AdminController {
         final UserDto userDto = userService.getUserDtoById(userId);
         log.info(userDto);
         model.addAttribute(Attributes.USER, userDto);
-        return "/" + view.manageUser;
+        return "/" + viewPath.manageUser;
     }
 
     @PostMapping("/updateUser")
@@ -48,12 +48,12 @@ public class AdminController {
         log.info(userDto);
         userService.updateUser(userDto);
 
-        return "redirect:/" + view.allUsers;
+        return "redirect:/" + viewPath.allUsers;
     }
 
     @GetMapping("/deleteUser/{id}")
     public String deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
-        return "redirect:/" + view.allUsers;
+        return "redirect:/" + viewPath.allUsers;
     }
 }

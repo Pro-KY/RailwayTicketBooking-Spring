@@ -5,7 +5,7 @@ import com.proky.booking.dto.TrainBookingDto;
 import com.proky.booking.dto.TrainDto;
 import com.proky.booking.service.TrainService;
 import com.proky.booking.util.constans.http.Attributes;
-import com.proky.booking.util.properties.View;
+import com.proky.booking.util.properties.ViewPath;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -19,7 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @AllArgsConstructor
 //@SessionAttributes({Attributes.PAGE_DTO, Attributes.MODEL})
 public class TrainController {
-    private View view;
+    private ViewPath viewPath;
     private TrainService trainService;
 
 
@@ -64,7 +64,7 @@ public class TrainController {
         model.addAttribute(Attributes.DEPARTURE_TIME, departureTime);
         model.addAttribute(Attributes.GOING_TO, goingTo);
 
-        return view.index;
+        return viewPath.index;
     }
 
     @GetMapping("/bookingPage")
@@ -74,6 +74,6 @@ public class TrainController {
 
         model.addAttribute(Attributes.TRAIN, trainDto);
         model.addAttribute(Attributes.TRAIN_BOOKING, new TrainBookingDto());
-        return view.trainBooking;
+        return viewPath.trainBooking;
     }
 }

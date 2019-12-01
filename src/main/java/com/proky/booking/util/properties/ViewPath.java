@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @PropertySource("classpath:view.properties")
-public class View {
+public class ViewPath {
     @Value("${index}")
     public String index;
 

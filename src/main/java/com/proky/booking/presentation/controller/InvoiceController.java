@@ -5,8 +5,7 @@ import com.proky.booking.dto.TrainBookingDto;
 import com.proky.booking.dto.UserDto;
 import com.proky.booking.service.InvoiceService;
 import com.proky.booking.util.constans.http.Attributes;
-import com.proky.booking.util.properties.View;
-import com.sun.org.apache.xpath.internal.operations.Mod;
+import com.proky.booking.util.properties.ViewPath;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -19,7 +18,7 @@ import java.util.Objects;
 @Controller
 @AllArgsConstructor
 public class InvoiceController {
-    private View view;
+    private ViewPath viewPath;
     private InvoiceService invoiceService;
 
     @PostMapping(value = "/invoice")
@@ -38,6 +37,6 @@ public class InvoiceController {
         invoiceDto.setUserLastName(lastName);
 
         model.addAttribute(Attributes.INVOICE_DTO, invoiceDto);
-        return view.invoice;
+        return viewPath.invoice;
     }
 }

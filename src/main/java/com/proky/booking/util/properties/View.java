@@ -15,11 +15,14 @@ public class View {
     @Value("${signIn}")
     public String signIn;
 
+    @Value("${manageUser}")
+    public String manageUser;
+
     @Value("${signUp}")
     public String signUp;
 
-    @Value("${adminUsers}")
-    public String adminUsers;
+    @Value("${allUsers}")
+    public String allUsers;
 
     @Value("${trainBooking}")
     public String trainBooking;

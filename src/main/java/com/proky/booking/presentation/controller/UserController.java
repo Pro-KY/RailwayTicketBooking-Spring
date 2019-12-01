@@ -1,6 +1,5 @@
 package com.proky.booking.presentation.controller;
 
-import com.proky.booking.dto.TrainBookingDto;
 import com.proky.booking.dto.UserDto;
 import com.proky.booking.persistence.entities.User;
 import com.proky.booking.service.SignInService;
@@ -8,7 +7,6 @@ import com.proky.booking.service.SignUpService;
 import com.proky.booking.service.UserService;
 import com.proky.booking.util.constans.http.Attributes;
 import com.proky.booking.util.properties.View;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
@@ -16,11 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotBlank;
-import java.util.Optional;
 
 @Log4j2
 @RequestMapping("/user")
@@ -56,7 +52,7 @@ public class UserController {
         log.info(userDto);
         userDto.setAdministrator(isAdministrator);
 
-        String viewhUrl = isAdministrator ? view.adminUsers : "trains";
+        String viewhUrl = isAdministrator ? view.allUsers : "trains";
         model.addAttribute(Attributes.USER, userDto);
 
         return "redirect:/" + viewhUrl;

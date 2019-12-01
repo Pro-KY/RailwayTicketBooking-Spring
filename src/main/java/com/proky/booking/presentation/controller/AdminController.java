@@ -32,7 +32,7 @@ public class AdminController {
         final PageDto usersPerPage = userService.findAllRegisteredUsers(pageDto);
         model.addAttribute(Attributes.PAGE_DTO, usersPerPage);
 
-        return view.adminUsers;
+        return view.allUsers;
     }
 
     @GetMapping("/manageUser")
@@ -40,7 +40,7 @@ public class AdminController {
         final UserDto userDto = userService.getUserDtoById(userId);
         log.info(userDto);
         model.addAttribute(Attributes.USER, userDto);
-        return "/admin/manageUser";
+        return "/" + view.manageUser;
     }
 
     @PostMapping("/updateUser")
@@ -48,12 +48,12 @@ public class AdminController {
         log.info(userDto);
         userService.updateUser(userDto);
 
-        return "redirect:/" + view.adminUsers;
+        return "redirect:/" + view.allUsers;
     }
 
     @GetMapping("/deleteUser/{id}")
-    public String deleteUser(@PathVariable Long id, Model model) {
-        log.info(id);
-        return "/admin/users";
+    public String deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return "redirect:/" + view.allUsers;
     }
 }

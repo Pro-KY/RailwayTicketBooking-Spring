@@ -15,7 +15,7 @@ import java.util.List;
 @Log4j2
 @Controller
 @AllArgsConstructor
-public class MainController {
+public class IndexController {
     private StationService stationService;
     private View view;
 
@@ -23,7 +23,7 @@ public class MainController {
     public String indexPage(Model model) {
         final List<Station> allStations = stationService.findAllStations();
         model.addAttribute(Attributes.STATIONS, allStations);
-        log.info("index called");
+        log.info("indexPage called");
         return view.index;
     }
 }

@@ -86,7 +86,6 @@ public class UserService {
         pageDto.setPageList(allUsersDto);
         paginationService.updatePageDto();
 
-
         return paginationService.getpageDto();
     }
 
@@ -101,8 +100,12 @@ public class UserService {
 
     @Lookup
     public PaginationService getProxyPaginationService() {
-        log.info("paginationService called");
         return null;
     }
 
+    @Transactional
+    public void deleteUser(Long userId) {
+        final User user = userDao.findById(userId).orElseThrow(() -> new ServiceException(message.notFoundEntity));
+        userDao.delete(user);
+    }
 }

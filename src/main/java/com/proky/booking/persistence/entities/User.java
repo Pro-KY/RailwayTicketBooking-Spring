@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
 @Table(name = "user", schema = "railway_ticket_booking_spring")
@@ -28,6 +27,7 @@ public class User {
     private String password;
 
     @ManyToOne
-    private UserType userType;
+    @JoinColumn(name="role_id", nullable=false)
+    private Role role;
 
 }

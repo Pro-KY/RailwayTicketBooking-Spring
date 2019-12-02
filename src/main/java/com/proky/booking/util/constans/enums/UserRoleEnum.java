@@ -1,16 +1,16 @@
 package com.proky.booking.util.constans.enums;
 
-public enum UserTypeEnum {
+public enum UserRoleEnum {
     USER("passenger"), GUEST("guest"), ADMIN("administrator");
 
-    public final String type;
+    public final String role;
 
-    UserTypeEnum(String type) {
-        this.type = type;
+    UserRoleEnum(String role) {
+        this.role = role;
     }
 
     @Override
     public String toString() {
-        return type;
+        return role;
     }
 }

@@ -1,9 +1,9 @@
 package com.proky.booking.persistence.dao;
 
-import com.proky.booking.persistence.entities.UserType;
+import com.proky.booking.persistence.entities.Role;
 
 import java.util.Optional;
 
-public interface IUserTypeDao extends IDao<UserType> {
-    Optional<UserType> findByType(String type);
+public interface IUserTypeDao extends IDao<Role> {
+    Optional<Role> findByType(String type);
 }

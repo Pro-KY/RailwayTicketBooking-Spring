@@ -14,7 +14,7 @@
             <div class="col-sm-6 col-md-4">
                 <div class="card border-info">
                     <div class="card-body">
-                        <form name="signIn" method="POST" th:action="@{/user/signIn/}">
+                        <form name="signIn" method="POST" th:action="@{/login}">
 
                             <div class="form-group">
                                 <label class="ml-3" for="inputEmail" th:text="#{user.email}"></label>
@@ -29,7 +29,8 @@
                             <button type="submit" class="btn btn-primary col-12" data-dismiss="modal" th:text="#{enter}"></button>
                         </form>
                         <div class="row justify-content-center">
-                            <div><span th:text="#{msg.signup}"></span> <a th:href="@{/user/signUpPage}" th:text="#{sing.up}"></a></div>
+<!--                            <div><span th:text="#{msg.signup}"></span> <a th:href="@{/user/signUpPage}" th:text="#{sing.up}"></a></div>-->
+                            <div><span th:text="#{msg.signup}"></span> <a th:href="@{/signUp}" th:text="#{sing.up}"></a></div>
                         </div>
                     </div>
                 </div>

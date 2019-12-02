@@ -1,5 +1,7 @@
 package com.proky.booking.config;
 
+import com.proky.booking.util.properties.ViewPath;
+import lombok.AllArgsConstructor;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
@@ -13,8 +15,11 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import java.util.Locale;
 
+@AllArgsConstructor
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
+    ViewPath viewPath;
+
     @Bean
     public LocaleResolver localeResolver() {
         SessionLocaleResolver sessionLocaleResolver = new SessionLocaleResolver();
@@ -37,4 +42,15 @@ public class WebConfig implements WebMvcConfigurer {
     webServerFactoryCustomizer() {
         return factory -> factory.setContextPath("/booking");
     }
+
+//    public void addViewControllers(ViewControllerRegistry registry) {
+//        registry.addViewController("/").setViewName(viewPath.index);
+//        registry.addViewController("/trains").setViewName(viewPath.index);
+//
+//        registry.addViewController("/admin/manageUser").setViewName(viewPath.manageUser);
+//        registry.addViewController("/admin/users").setViewName(viewPath.allUsers);
+//
+//        registry.addViewController("/user/signInPage").setViewName(viewPath.signIn);
+//        registry.addViewController("/user/signUpPage").setViewName(viewPath.signUp);
+//    }
 }

@@ -6,9 +6,9 @@ import com.proky.booking.exception.ServiceException;
 import com.proky.booking.persistence.dao.IUserDao;
 import com.proky.booking.persistence.dao.IUserTypeDao;
 import com.proky.booking.persistence.entities.User;
-import com.proky.booking.persistence.entities.UserType;
+import com.proky.booking.persistence.entities.Role;
 import com.proky.booking.util.PasswordEncryptor;
-import com.proky.booking.util.constans.enums.UserTypeEnum;
+import com.proky.booking.util.constans.enums.UserRoleEnum;
 import com.proky.booking.util.properties.Message;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -36,13 +36,13 @@ public class UserService {
     private PasswordEncryptor passwordEncryptor;
 
     public boolean isAdministrator(User authenticatedUser) {
-        final UserType userType = authenticatedUser.getUserType();
+        final Role role = authenticatedUser.getRole();
 
-        final UserType adminUserType = userTypeDao
-                .findByType(UserTypeEnum.ADMIN.type)
+        final Role adminRole = userTypeDao
+                .findByType(UserRoleEnum.ADMIN.role)
                 .orElseThrow(() -> new ServiceException(message.notFoundEntity));
 
-        return userType.equals(adminUserType);
+        return role.equals(adminRole);
     }
 
     @Transactional
@@ -68,8 +68,8 @@ public class UserService {
 
     public PageDto findAllRegisteredUsers(PageDto pageDto) {
 
-        final UserType userType = userTypeDao.
-                findByType(UserTypeEnum.USER.type)
+        final Role role = userTypeDao.
+                findByType(UserRoleEnum.USER.role)
                 .orElseThrow(() -> new ServiceException(message.notFoundEntity));
 
         final PaginationService paginationService = getProxyPaginationService();
@@ -78,7 +78,7 @@ public class UserService {
 
         Pageable pageable = PageRequest.of(paginationService.getCurrentPageIndex(), paginationService.getPageSize());
 
-        final Page<User> allUsersPage = userDao.findAllByType(userType, pageable);
+        final Page<User> allUsersPage = userDao.findAllByType(role, pageable);
         final List<UserDto> allUsersDto = allUsersPage.get().map(user -> modelMapper.map(user, UserDto.class)).collect(Collectors.toList());
 
         paginationService.setAllPagesAmount(allUsersPage.getTotalPages());
@@ -96,6 +96,11 @@ public class UserService {
     public UserDto getUserDtoById(Long id) {
         final User user = findUserById(id);
         return modelMapper.map(user, UserDto.class);
+    }
+
+
+    public void save() {
+
     }
 
     @Lookup

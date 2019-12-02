@@ -2,14 +2,13 @@ package com.proky.booking.persistence.dao.springdata;
 
 import com.proky.booking.persistence.dao.IUserDao;
 import com.proky.booking.persistence.entities.User;
-import com.proky.booking.persistence.entities.UserType;
+import com.proky.booking.persistence.entities.Role;
 import com.proky.booking.persistence.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -23,8 +22,8 @@ public class UserDaoImpl implements IUserDao {
     }
 
     @Override
-    public Page<User> findAllByType(UserType userType, Pageable pageable) {
-        return userRepository.findAllByUserType(userType, pageable);
+    public Page<User> findAllByType(Role role, Pageable pageable) {
+        return userRepository.findAllByRole(role, pageable);
     }
 
     @Override

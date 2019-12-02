@@ -1,7 +1,7 @@
 package com.proky.booking.persistence.dao.springdata;
 
 import com.proky.booking.persistence.dao.IUserTypeDao;
-import com.proky.booking.persistence.entities.UserType;
+import com.proky.booking.persistence.entities.Role;
 import com.proky.booking.persistence.repository.UserTypeRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -14,27 +14,27 @@ public class UserTypeDaoImpl implements IUserTypeDao {
     private UserTypeRepository userTypeRepository;
 
     @Override
-    public Optional<UserType> findByType(String type) {
-        return userTypeRepository.findByType(type);
+    public Optional<Role> findByType(String type) {
+        return userTypeRepository.findByName(type);
     }
 
     @Override
-    public UserType save(UserType entity) {
+    public Role save(Role entity) {
         return userTypeRepository.save(entity);
     }
 
     @Override
-    public UserType update(UserType entity) {
+    public Role update(Role entity) {
         return userTypeRepository.save(entity);
     }
 
     @Override
-    public void delete(UserType entity) {
+    public void delete(Role entity) {
         userTypeRepository.delete(entity);
     }
 
     @Override
-    public Optional<UserType> findById(Long id) {
+    public Optional<Role> findById(Long id) {
         return userTypeRepository.findById(id);
     }
 }

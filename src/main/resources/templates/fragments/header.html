@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title></title>
 </head>
@@ -13,17 +13,18 @@
                     </a>
                 </div>
                 <span class="navbar-text mr-3">
-                    <span th:text="|session user: ${session.user}|"></span>
-
                     <span th:text="#{header.greeting}"></span>,
-                    <span th:if="${session.user ne null}" th:text="|*{firstName} *{lastName}|"></span>
-                    <span th:unless="${session.user ne null}" th:text="#{header.guest}"></span>
+                    <span sec:authorize="isAuthenticated()" sec:authentication="name"></span>
+                    <span sec:authorize="not isAuthenticated()" th:text="#{header.guest}"></span>
                 </span>
 
-                <a class="btn btn-link" th:href="@{/user/signInPage}" th:if="${session.user eq null}" role="button">
+<!--                <a class="btn btn-link" th:href="@{/user/signInPage}" th:if="${session.user eq null}" role="button">-->
+
+                <a class="btn btn-link" th:href="@{/login}" sec:authorize="not isAuthenticated()" role="button">
                     <span th:text="#{header.authorize}"></span>
                 </a>
-                <a class="btn btn-link mr-1" th:href="@{/user/signOut}" th:unless="${session.user eq null}" role="button">
+
+                <a class="btn btn-link mr-1" th:href="@{/logout}" sec:authorize="isAuthenticated()" role="button">
                     <span th:text="#{sing.out}"></span>
                 </a>
             </nav>

@@ -7,12 +7,12 @@ import java.util.Objects;
 
 @Entity
 @Data
-@Table(name = "user_type", schema = "railway_ticket_booking_spring")
-public class UserType {
+@Table(name = "role", schema = "railway_ticket_booking_spring")
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Basic
-    @Column(name = "type")
-    private String type;
+    @Column(name = "name")
+    private String name;
 }

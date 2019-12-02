@@ -5,6 +5,7 @@ import com.proky.booking.persistence.entities.User;
 import com.proky.booking.service.SignInService;
 import com.proky.booking.service.SignUpService;
 import com.proky.booking.service.UserService;
+import com.proky.booking.service.security.SecurityService;
 import com.proky.booking.util.AlertHandler;
 import com.proky.booking.util.constans.http.Attributes;
 import com.proky.booking.util.properties.Message;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotBlank;
 
@@ -34,48 +36,14 @@ public class UserController {
     private ModelMapper modelMapper;
     private AlertHandler alertHandler;
     private Message message;
+    private SecurityService securityService;
 
-    @GetMapping("/signInPage")
-    public String signInPage() {
-        return viewPath.signIn;
-    }
+//    @GetMapping("/signInPage")
+//    public String signInPage() {
+//        log.info("here in singIn page");
+//        return viewPath.signIn;
+//    }
 
-    @GetMapping("/signUpPage")
-    public String signUpPage(Model model) {
-        model.addAttribute(Attributes.USER, new UserDto());
-        return viewPath.signUp;
-    }
 
-    @PostMapping("/signIn")
-    public String singIn(@RequestParam @NotBlank String email, @RequestParam @NotBlank String password, Model model) {
-        final UserDto userCredentials = new UserDto(email, password);
-        final User authenticatedUser = signInService.signIn(userCredentials);
-        log.info("user is signed in");
 
-        final boolean isAdministrator = userService.isAdministrator(authenticatedUser);
-        final UserDto userDto = modelMapper.map(authenticatedUser, UserDto.class);
-        log.info(userDto);
-        userDto.setAdministrator(isAdministrator);
-
-        String viewhUrl = isAdministrator ? viewPath.allUsers : "trains";
-        model.addAttribute(Attributes.USER, userDto);
-
-        return "redirect:/" + viewhUrl;
-    }
-
-    @PostMapping("/signUp")
-    public String singUp(@ModelAttribute UserDto userDto, RedirectAttributes redirectAttributes) {
-        log.info(userDto);
-        signUpService.signUp(userDto);
-        alertHandler.setAlertData(true, message.userCreated, redirectAttributes);
-        return "redirect:/" + viewPath.signIn;
-    }
-
-    @GetMapping("/signOut")
-    public String singOut(HttpSession session, SessionStatus status) {
-        status.setComplete();
-        session.invalidate();
-        log.info("user is signed out");
-        return "redirect:/";
-    }
 }

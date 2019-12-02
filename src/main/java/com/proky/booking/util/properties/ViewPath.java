@@ -1,7 +1,5 @@
 package com.proky.booking.util.properties;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
@@ -12,8 +10,8 @@ public class ViewPath {
     @Value("${index}")
     public String index;
 
-    @Value("${signIn}")
-    public String signIn;
+    @Value("${login}")
+    public String login;
 
     @Value("${deleteUser}")
     public String deleteUser;
@@ -41,4 +39,7 @@ public class ViewPath {
 
     @Value("${accessDenied}")
     public String accessDenied;
+
+    @Value("${errorNotFound}")
+    public String errorNotFound;
 }

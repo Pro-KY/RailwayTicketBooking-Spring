@@ -15,6 +15,12 @@ public class ViewPath {
     @Value("${signIn}")
     public String signIn;
 
+    @Value("${deleteUser}")
+    public String deleteUser;
+
+    @Value("${updateUser}")
+    public String updateUser;
+
     @Value("${manageUser}")
     public String manageUser;
 
@@ -33,7 +39,6 @@ public class ViewPath {
     @Value("${errorRuntime}")
     public String errorRuntime;
 
-    @Value("${errorNotFound}")
-    public String errorNotFound;
-
+    @Value("${accessDenied}")
+    public String accessDenied;
 }

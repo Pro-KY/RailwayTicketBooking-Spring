@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Title</title>
+    <th:block th:insert="~{fragments/staticImports :: headImports}"> </th:block>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <img class="img-fluid" th:src="@{/img/error_not_pass.jpg}" alt=""/>
+            </div>
+        </div>
+    </div>
+    <th:block th:insert="~{fragments/staticImports :: scriptImports}"> </th:block>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+</body>
+</html>

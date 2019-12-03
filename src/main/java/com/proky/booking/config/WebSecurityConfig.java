@@ -1,5 +1,6 @@
 package com.proky.booking.config;
 
+import com.proky.booking.service.security.CustomAuthenticationProvider;
 import com.proky.booking.util.constans.enums.UserRoleEnum;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    private CustomAuthenticationProvider authProvider;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -45,21 +48,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                 .logout()
                     .invalidateHttpSession(true)
-                    .permitAll()
-                    .logoutSuccessUrl("/").and().exceptionHandling()
-                    .accessDeniedPage("/errors/accessDenied");
+//                    .permitAll()
+                    .logoutSuccessUrl("/")
+                    .and()
+                    .exceptionHandling().accessDeniedPage("/errors/accessDenied");
     }
 
-
-    @Bean
-    public AuthenticationManager customAuthenticationManager() throws Exception {
-        return authenticationManager();
-    }
+//    @Bean
+//    @Override
+//    public AuthenticationManager authenticationManagerBean() throws Exception {
+//         return super.authenticationManagerBean();
+//    }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
+        auth.authenticationProvider(authProvider)
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(bCryptPasswordEncoder());
+
     }
+
 
     @Override
     public void configure(WebSecurity web) throws Exception {

@@ -30,7 +30,9 @@ public class SignUpService {
     private Message message;
     private ModelMapper modelMapper;
 
-    public void signUp(final UserDto userFromRequest) {
+    public User signUp(final UserDto userFromRequest) {
+        Optional<User> savedUser;
+        final ServiceException serviceException = new ServiceException(message.notFoundEntity);
 
         final Optional<User> foundUser = userDao.findByEmail(userFromRequest.getEmail());
         if (foundUser.isPresent()) {
@@ -38,14 +40,18 @@ public class SignUpService {
         } else {
 //            final String encryptedPassword = passwordEncryptor.encrypt(userFromRequest.getPassword());
             final String encryptedPassword = bCryptPasswordEncoder.encode(userFromRequest.getPassword());
-            final Role role = userTypeDao.findByType(UserRoleEnum.USER.role).orElseThrow(() -> new ServiceException(message.notFoundEntity));
-            userFromRequest.setPassword(encryptedPassword);
+            final Role role = userTypeDao.findByType(UserRoleEnum.USER.role).orElseThrow(() -> serviceException);
 
             final User newUser = modelMapper.map(userFromRequest, User.class);
+
             log.info(newUser);
             newUser.setRole(role);
-            userDao.save(newUser);
+            newUser.setPassword(encryptedPassword);
+            savedUser = Optional.ofNullable(userDao.save(newUser));
+            log.info(savedUser);
+
         }
+        return savedUser.orElseThrow(() -> serviceException);
     }
 
 }

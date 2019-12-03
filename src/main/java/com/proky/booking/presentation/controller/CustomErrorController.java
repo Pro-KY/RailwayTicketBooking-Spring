@@ -24,6 +24,7 @@ public class CustomErrorController implements ErrorController {
 
         String errorViewPath = viewPath.errorRuntime;
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+        log.info(status);
 
         if (status != null) {
             int statusCode = Integer.parseInt(status.toString());

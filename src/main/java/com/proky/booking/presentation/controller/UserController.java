@@ -22,12 +22,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.validation.constraints.NotBlank;
 
 @Log4j2
 @Controller
@@ -35,10 +32,7 @@ import javax.validation.constraints.NotBlank;
 @SessionAttributes(Attributes.USER)
 public class UserController {
     private ViewPath viewPath;
-    private SignInService signInService;
     private SignUpService signUpService;
-    private UserService userService;
-    private ModelMapper modelMapper;
     private AlertHandler alertHandler;
     private Message message;
     private SecurityService securityService;
@@ -47,11 +41,10 @@ public class UserController {
     public String signIn(Model model, String error) {
         log.info("here in singIn page");
         log.info("error {}", error);
-        return (!isAnonymousUser()) ? "redirect:/defaultAfterLogin" : viewPath.login;
+        return (!securityService.isAnonymousUser()) ? "redirect:/defaultAfterLogin" : viewPath.login;
     }
 
     @GetMapping("/signUp")
-//    public String signUpPage(Model model) {
     public String signUp(Model model) {
         model.addAttribute(Attributes.USER, new UserDto());
         return viewPath.signUp;
@@ -61,7 +54,7 @@ public class UserController {
     public String defaultAfterLogin(HttpServletRequest request) {
         log.info("defaultAfterLogin called");
 
-        final String userRole = getUserRole();
+        final String userRole = securityService.getUserRole();
         log.info(userRole);
 
         String viewhUrl = userRole.equals(UserRoleEnum.ADMIN.role) ? viewPath.allUsers : "trains";
@@ -73,20 +66,9 @@ public class UserController {
         log.info(userDto);
         final User signedUpUser = signUpService.signUp(userDto);
         alertHandler.setAlertData(true, message.userCreated, redirectAttributes);
-        securityService.autoLogin(signedUpUser.getEmail(), signedUpUser.getPassword());
 
-        return "redirect:/defaultAfterLogin";
+        return "redirect:/" + viewPath.login;
     }
 
-    private boolean isAnonymousUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return  authentication instanceof AnonymousAuthenticationToken;
-    }
 
-    private String getUserRole() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        final GrantedAuthority next = userDetails.getAuthorities().iterator().next();
-        return next.getAuthority();
-    }
 }

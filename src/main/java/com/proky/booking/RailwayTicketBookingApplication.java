@@ -10,12 +10,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.annotation.PreDestroy;
 
-//@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
 @SpringBootApplication
 @Log4j2
 @AllArgsConstructor
 public class RailwayTicketBookingApplication implements CommandLineRunner {
-	BCryptPasswordEncoder bCryptPasswordEncoder;
+//	BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	public static void main(String[] args) {
 		SpringApplication.run(RailwayTicketBookingApplication.class, args);
@@ -23,7 +22,7 @@ public class RailwayTicketBookingApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		System.out.println(bCryptPasswordEncoder.encode("pass_2"));
+//		System.out.println(bCryptPasswordEncoder.encode("pass_2"));
 	}
 
 }

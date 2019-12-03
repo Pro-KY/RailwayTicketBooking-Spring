@@ -31,6 +31,8 @@ public class CustomErrorController implements ErrorController {
 
             if(statusCode == HttpStatus.NOT_FOUND.value()) {
                 errorViewPath =  viewPath.errorNotFound;
+            } else if (statusCode == HttpStatus.FORBIDDEN.value()) {
+                errorViewPath =  viewPath.accessDenied;
             }
         }
 

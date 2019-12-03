@@ -16,6 +16,8 @@
                     <span th:text="#{header.greeting}"></span>,
                     <span sec:authorize="isAuthenticated()" sec:authentication="name"></span>
                     <span sec:authorize="not isAuthenticated()" th:text="#{header.guest}"></span>
+<!--                    <span sec:authentication="name"></span>-->
+<!--                    <span sec:authorize="hasRole('ROLE_ANONYMOUS')">Hey!</span>-->
                 </span>
 
 <!--                <a class="btn btn-link" th:href="@{/user/signInPage}" th:if="${session.user eq null}" role="button">-->

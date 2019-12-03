@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -37,7 +36,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/signUp").permitAll()
                     .antMatchers("/admin/**").hasAuthority(UserRoleEnum.ADMIN.role)
                     .antMatchers("/static/**").permitAll()
-                 .anyRequest()
+                .anyRequest()
                     .authenticated().and().csrf().disable()
                 .formLogin()
                     .loginPage("/login").failureUrl("/login?error=true")
@@ -51,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                    .permitAll()
                     .logoutSuccessUrl("/")
                     .and()
-                    .exceptionHandling().accessDeniedPage("/errors/accessDenied");
+                    .exceptionHandling();
     }
 
 //    @Bean
@@ -67,7 +66,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(bCryptPasswordEncoder());
 
     }
-
 
     @Override
     public void configure(WebSecurity web) throws Exception {

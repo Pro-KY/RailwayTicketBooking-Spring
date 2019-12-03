@@ -9,7 +9,7 @@
     <div th:replace="fragments/header :: header"></div>
     <!-- HEADER -->
 
-    <div class="container float-left ml-3 mt-5 pt-4"> <!-- MAIN CONTENT -->
+    <div class="container float-left ml-3 mt-5 pt-4" th:if="${pageDto != null}"> <!-- MAIN CONTENT -->
         <div id="elementsAmountSelect" class="row"> <!--PAGE_SIZE-->
             <div class="col-md-10"></div>
             <div class="col-md-2">
@@ -38,19 +38,19 @@
                 </thead>
 
                 <tbody>
-                    <th:block th:if="${pageDto != null}">
+<!--                    <th:block th:if="${pageDto != null}">-->
                         <tr class="table-row clickable-row" th:each="user : ${pageDto.pageList}" th:attr="data-href=@{/admin/manageUser(userId=${user.id})}" >
                             <td th:text="${user.id}"></td>
                             <td th:text="${user.firstName}"></td>
                             <td th:text="${user.lastName}"></td>
                             <td th:text="${user.email}"></td>
                         </tr>
-                    </th:block>
+<!--                    </th:block>-->
                 </tbody>
             </table>
         </div> <!--TABLE-->
 
-        <th:block th:if="${pageDto != null and pageDto.allPagesAmount > 1}"> <!--PAGINATION-->
+        <th:block th:if="${pageDto.allPagesAmount > 1}"> <!--PAGINATION-->
             <div class="row mt-4">
                 <div class="col-md-3"></div>
                 <div class="col-md-6">

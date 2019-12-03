@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>SignIn</title>
     <th:block th:insert="~{fragments/staticImports :: headImports}"> </th:block>
@@ -15,7 +15,7 @@
 
             <div class="row align-items-start justify-content-start mb-3">
                 <div class="col-md-4 mt-3">
-                    <th:block th:if="${session.user eq null}">
+                    <th:block sec:authorize="not isAuthenticated()">
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="inputFirstName" th:text="#{user.firstName}"></label>

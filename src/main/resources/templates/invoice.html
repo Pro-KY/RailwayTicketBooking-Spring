@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>SignIn</title>
     <th:block th:insert="~{fragments/staticImports :: headImports}"> </th:block>
@@ -15,7 +15,8 @@
                 <table class="table">
                     <tr class="table-row">
                         <td th:text="|#{user.firstName} #{user.lastName}|"></td>
-                        <td th:text="|*{userFirstName} *{userLastName}|"></td>
+                        <td sec:authorize="isAuthenticated()" sec:authentication="name"></td>
+                        <td sec:authorize="not isAuthenticated()" th:text="|*{userFirstName} *{userLastName}|"> </td>
                     </tr>
                     <tr class="table-row">
                         <td th:text="#{table.header.route}"></td>
@@ -26,12 +27,12 @@
                         <td th:text="|*{trainId} *{trainType}|"></td>
                     </tr>
                     <tr class="table-row">
-                        <td th:text="|#{invoice.departure} #{table.header.date} /  #{table.header.time}|"></td>
+                        <td th:text="|#{invoice.departure} #{table.header.date} / #{table.header.time}|"></td>
                         <td th:text="|*{routeDepartureDate} / *{routeDepartureTime}|"></td>
                     </tr>
                     <tr class="table-row">
                         <td th:text="|#{invoice.arrival} #{table.header.date}  /  #{table.header.time}|"></td>
-                        <td th:text="|*{routeArrivalDate} /  *{routeArrivalTime}|"></td>
+                        <td th:text="|*{routeArrivalDate} / *{routeArrivalTime}|"></td>
                     </tr>
                     <tr class="table-row">
                         <td th:text="#{invoice.seats.amount}"></td>

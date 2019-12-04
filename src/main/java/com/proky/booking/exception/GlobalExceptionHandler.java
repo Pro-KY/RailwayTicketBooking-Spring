@@ -1,7 +1,7 @@
 package com.proky.booking.exception;
 
 import com.proky.booking.util.constans.Attributes;
-import com.proky.booking.util.properties.ViewPath;
+import com.proky.booking.util.constans.ViewPath;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.*;

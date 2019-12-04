@@ -27,8 +27,8 @@ public class SqlDateTimeConverter {
         int hours = 12;
 
         final String timeWithoutPM = timeUI.substring(0, timeUI.indexOf(" "));
-
         final String timePeriod = timeUI.substring(timeUI.indexOf(" ")).trim();
+
         if (timePeriod.equals("PM")) {
             final String[] splitTime = timeWithoutPM.split(timeSeparator);
             final int timePart = Integer.parseInt(splitTime[0]);

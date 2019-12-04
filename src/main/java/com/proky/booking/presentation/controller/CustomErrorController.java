@@ -1,6 +1,6 @@
 package com.proky.booking.presentation.controller;
 
-import com.proky.booking.util.properties.ViewPath;
+import com.proky.booking.util.constans.ViewPath;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.web.servlet.error.ErrorController;
@@ -19,9 +19,6 @@ public class CustomErrorController implements ErrorController {
 
     @RequestMapping("/error")
     public String handleError(HttpServletRequest request) {
-
-        log.info("handleError =>");
-
         String errorViewPath = viewPath.errorRuntime;
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
         log.info(status);

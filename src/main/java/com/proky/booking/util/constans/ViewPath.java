@@ -1,4 +1,4 @@
-package com.proky.booking.util.properties;
+package com.proky.booking.util.constans;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;

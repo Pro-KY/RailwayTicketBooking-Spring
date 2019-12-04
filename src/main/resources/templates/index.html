@@ -85,10 +85,8 @@
                     </thead>
                     <tbody>
 
-                    <!--                th:href="@{/trains/bookingPage(trainId=${train.trainId})}"-->
-
                     <th:block th:if="${pageDto != null}">
-                        <tr class="table-row clickable-row" th:attr="data-href=@{/trains/bookingPage(trainId=${train.trainId})}" th:each="train : ${pageDto.pageList}">
+                        <tr class="table-row clickable-row" th:attr="data-href=@{/trains/(trainId=${train.trainId})}" th:each="train : ${pageDto.pageList}">
                             <td th:text="${train.trainId} + ' ' + ${train.trainType}"> </td>
                             <td>
                                 <button type="button" class="btn btn-link example-popover p-0 routeName" data-trigger="hover" data-toggle="popover" th:attr="data-content=${stations2}, title=#{table.header.route}" th:text="${#messages.msg(#strings.concat('station.', train.departureStationId))} + '-' + ${#messages.msg(#strings.concat('station.', train.arrivalStationId))}"></button>

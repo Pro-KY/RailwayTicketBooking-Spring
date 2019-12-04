@@ -6,7 +6,7 @@ import com.proky.booking.service.UserService;
 import com.proky.booking.util.AlertHandler;
 import com.proky.booking.util.MessageSourceWrapper;
 import com.proky.booking.util.constans.Attributes;
-import com.proky.booking.util.properties.ViewPath;
+import com.proky.booking.util.constans.ViewPath;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -57,7 +57,7 @@ public class AdminController {
         return "redirect:/" + viewPath.allUsers;
     }
 
-    @GetMapping("/deleteUser/{id}") // String
+    @GetMapping("/deleteUser/{id}")
     public String deleteUser(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         alertHandler.setAlertData(true, messageSourceWrapper.getMessage("user.deleted.msg"), redirectAttributes);
         userService.deleteUser(id);

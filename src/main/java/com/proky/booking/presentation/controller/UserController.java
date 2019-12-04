@@ -7,7 +7,7 @@ import com.proky.booking.util.AlertHandler;
 import com.proky.booking.util.MessageSourceWrapper;
 import com.proky.booking.util.constans.RoleEnum;
 import com.proky.booking.util.constans.Attributes;
-import com.proky.booking.util.properties.ViewPath;
+import com.proky.booking.util.constans.ViewPath;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -22,7 +22,6 @@ import javax.validation.Valid;
 @Log4j2
 @Controller
 @AllArgsConstructor
-//@SessionAttributes(Attributes.USER)
 public class UserController {
     private ViewPath viewPath;
     private SignUpService signUpService;
@@ -31,7 +30,7 @@ public class UserController {
     private MessageSourceWrapper messageSourceWrapper;
 
     @GetMapping("/login")
-    public String signIn(Model model, String error) {
+    public String signIn(String error) {
         log.info("here in singIn page");
         log.info("error {}", error);
         return (!securityService.isAnonymousUser()) ? "redirect:/defaultAfterLogin" : viewPath.login;

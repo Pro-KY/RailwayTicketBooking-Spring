@@ -16,7 +16,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Log4j2
@@ -30,10 +29,9 @@ public class UserController {
     private MessageSourceWrapper messageSourceWrapper;
 
     @GetMapping("/login")
-    public String signIn(String error) {
+    public String login(String error) {
         log.info("here in singIn page");
-        log.info("error {}", error);
-        return (!securityService.isAnonymousUser()) ? "redirect:/defaultAfterLogin" : viewPath.login;
+        return (securityService.isNotAnonymousUser()) ? "redirect:/defaultAfterLogin" : viewPath.login;
     }
 
     @GetMapping("/signUp")
@@ -43,9 +41,8 @@ public class UserController {
     }
 
     @RequestMapping("/defaultAfterLogin")
-    public String defaultAfterLogin(HttpServletRequest request) {
+    public String defaultAfterLogin() {
         log.info("defaultAfterLogin called");
-
         final String userRole = securityService.getUserRole();
         log.info(userRole);
 

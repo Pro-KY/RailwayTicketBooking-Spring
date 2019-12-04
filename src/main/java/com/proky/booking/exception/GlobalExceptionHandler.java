@@ -21,7 +21,7 @@ public class GlobalExceptionHandler {
     SecurityService securityService;
 
     @ExceptionHandler(Throwable.class)
-    public ModelAndView handleAllExceptions(Throwable ex, HttpServletRequest request) {
+    public ModelAndView handleAllExceptions(Throwable ex) {
         ModelAndView modelAndView = new ModelAndView(viewPath.errorRuntime);
 
         log.info("handle all exceptions");

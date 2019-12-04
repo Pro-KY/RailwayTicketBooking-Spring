@@ -1,7 +1,7 @@
 package com.proky.booking.util.constans;
 
 public enum RoleEnum {
-    USER("passenger"), GUEST("guest"), ADMIN("administrator"), ANONYMOUS("ROLE_ANONYMOUS");
+    USER("user"), ADMIN("administrator"), ANONYMOUS("ROLE_ANONYMOUS");
 
     public final String role;
 

@@ -6,6 +6,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.annotation.PreDestroy;
@@ -13,7 +15,8 @@ import javax.annotation.PreDestroy;
 @SpringBootApplication
 @Log4j2
 @AllArgsConstructor
-public class RailwayTicketBookingApplication implements CommandLineRunner {
+public class RailwayTicketBookingApplication extends SpringBootServletInitializer implements CommandLineRunner {
+//public class RailwayTicketBookingApplication implements CommandLineRunner {
 //	BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	public static void main(String[] args) {
@@ -21,9 +24,13 @@ public class RailwayTicketBookingApplication implements CommandLineRunner {
 	}
 
 	@Override
-	public void run(String... args) throws Exception {
-//		System.out.println(bCryptPasswordEncoder.encode("pass_2"));
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+		return builder.sources(RailwayTicketBookingApplication.class);
 	}
 
+	@Override
+	public void run(String... args) throws Exception {
+//		System.out.println(bCryptPasswordEncoder.encode("pass_5"));
+	}
 }
 

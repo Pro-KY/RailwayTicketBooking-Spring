@@ -29,10 +29,10 @@
     position: absolute;
 }
 
-#test{
-    color: #005cbf;
-}
-
 .errors-color {
     color: red;
+}
+
+.main_color {
+    color: #005cbf;
 }

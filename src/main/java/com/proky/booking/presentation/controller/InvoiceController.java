@@ -27,7 +27,7 @@ public class InvoiceController {
         final InvoiceDto invoiceDto = invoiceService.calculateInvoice(trainBooking);
         log.info(invoiceDto);
 
-        final boolean notAnonymousUser = !securityService.isAnonymousUser();
+        final boolean notAnonymousUser = securityService.isNotAnonymousUser();
 
         if (notAnonymousUser) {
             final SecureUserDto secureUserDto = securityService.getCurrentUser();

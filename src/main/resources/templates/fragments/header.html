@@ -20,13 +20,11 @@
 <!--                    <span sec:authorize="hasRole('ROLE_ANONYMOUS')">Hey!</span>-->
                 </span>
 
-<!--                <a class="btn btn-link" th:href="@{/user/signInPage}" th:if="${session.user eq null}" role="button">-->
-
-                <a class="btn btn-link" th:href="@{/login}" sec:authorize="not isAuthenticated()" role="button">
+                <a class="btn btn-link main_color" th:href="@{/login}" sec:authorize="not isAuthenticated()" role="button">
                     <span th:text="#{header.authorize}"></span>
                 </a>
 
-                <a class="btn btn-link mr-1" th:href="@{/logout}" sec:authorize="isAuthenticated()" role="button">
+                <a class="btn btn-link mr-1 main_color" th:href="@{/logout}" sec:authorize="isAuthenticated()" role="button">
                     <span th:text="#{sing.out}"></span>
                 </a>
             </nav>

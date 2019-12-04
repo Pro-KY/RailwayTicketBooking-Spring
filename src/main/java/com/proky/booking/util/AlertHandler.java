@@ -1,6 +1,6 @@
 package com.proky.booking.util;
 
-import com.proky.booking.util.constans.http.Attributes;
+import com.proky.booking.util.constans.Attributes;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;

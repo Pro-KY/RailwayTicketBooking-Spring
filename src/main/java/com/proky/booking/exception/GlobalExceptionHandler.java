@@ -1,18 +1,13 @@
 package com.proky.booking.exception;
 
-import com.proky.booking.dto.ErrorDto;
-import com.proky.booking.util.constans.http.Attributes;
+import com.proky.booking.util.constans.Attributes;
 import com.proky.booking.util.properties.ViewPath;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.http.HttpRequest;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 @Log4j2

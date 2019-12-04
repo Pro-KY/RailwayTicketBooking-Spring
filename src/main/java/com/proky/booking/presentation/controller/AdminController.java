@@ -4,8 +4,8 @@ import com.proky.booking.dto.PageDto;
 import com.proky.booking.dto.UserDto;
 import com.proky.booking.service.UserService;
 import com.proky.booking.util.AlertHandler;
-import com.proky.booking.util.constans.http.Attributes;
-import com.proky.booking.util.properties.Message;
+import com.proky.booking.util.MessageSourceWrapper;
+import com.proky.booking.util.constans.Attributes;
 import com.proky.booking.util.properties.ViewPath;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -22,7 +22,7 @@ public class AdminController {
     private ViewPath viewPath;
     private UserService userService;
     private AlertHandler alertHandler;
-    private Message message;
+    private MessageSourceWrapper messageSourceWrapper;
 
     @RequestMapping("/users")
     public String getRegisteredUsers(@RequestParam(required = false) Integer pageIndex,
@@ -44,7 +44,7 @@ public class AdminController {
     public String manageUser(@RequestParam Long userId,  Model model) {
         final UserDto userDto = userService.getUserDtoById(userId);
         log.info(userDto);
-        model.addAttribute(Attributes.USER, userDto);
+        model.addAttribute(Attributes.USER_DTO, userDto);
         return "/" + viewPath.manageUser;
     }
 
@@ -52,14 +52,14 @@ public class AdminController {
     public String updateUser(@ModelAttribute UserDto userDto, RedirectAttributes redirectAttributes) {
         log.info(userDto);
         userService.updateUser(userDto);
-        alertHandler.setAlertData(true, message.userUpdated, redirectAttributes);
+        alertHandler.setAlertData(true, messageSourceWrapper.getMessage("user.updated.msg"), redirectAttributes);
 
         return "redirect:/" + viewPath.allUsers;
     }
 
     @GetMapping("/deleteUser/{id}") // String
     public String deleteUser(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-        alertHandler.setAlertData(true, message.userDeleted, redirectAttributes);
+        alertHandler.setAlertData(true, messageSourceWrapper.getMessage("user.deleted.msg"), redirectAttributes);
         userService.deleteUser(id);
         return "redirect:/" + viewPath.allUsers;
     }

@@ -1,6 +1,6 @@
 package com.proky.booking.presentation.controller;
 
-import com.proky.booking.util.constans.http.Attributes;
+import com.proky.booking.util.constans.Attributes;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -7,8 +7,8 @@ import com.proky.booking.exception.ServiceException;
 import com.proky.booking.persistence.dao.ITrainDao;
 import com.proky.booking.persistence.entities.Station;
 import com.proky.booking.persistence.entities.Train;
+import com.proky.booking.util.MessageSourceWrapper;
 import com.proky.booking.util.SqlDateTimeConverter;
-import com.proky.booking.util.properties.Message;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
@@ -32,7 +32,7 @@ public class TrainService {
     private SqlDateTimeConverter sqlDateTimeConverter;
     private StationService stationService;
     private ModelMapper modelMapper;
-    private Message messages;
+    private MessageSourceWrapper messageSourceWrapper;
 
     @Transactional
     public PageDto findTrains(final PageDto pageDto, String requestDate, String requestTime, String stationId) {
@@ -64,7 +64,7 @@ public class TrainService {
     }
 
     public Train findTrainById(Long id) {
-        return trainDao.findById(id).orElseThrow(() -> new ServiceException(messages.notFoundEntity));
+        return trainDao.findById(id).orElseThrow(() -> new ServiceException(messageSourceWrapper.getMessage("error.notfound")));
     }
 
     @Lookup

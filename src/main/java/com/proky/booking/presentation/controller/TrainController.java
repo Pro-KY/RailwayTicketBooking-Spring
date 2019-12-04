@@ -4,7 +4,7 @@ import com.proky.booking.dto.PageDto;
 import com.proky.booking.dto.TrainBookingDto;
 import com.proky.booking.dto.TrainDto;
 import com.proky.booking.service.TrainService;
-import com.proky.booking.util.constans.http.Attributes;
+import com.proky.booking.util.constans.Attributes;
 import com.proky.booking.util.properties.ViewPath;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;

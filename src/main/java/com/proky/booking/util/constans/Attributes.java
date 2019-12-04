@@ -1,11 +1,11 @@
-package com.proky.booking.util.constans.http;
+package com.proky.booking.util.constans;
 
 public class Attributes {
     public static final String CURRENT_PAGE = "currentPage";
 
     public static final String VALIDATION = "validation";
     public static final String IS_USER_AUTHORIZED = "isUserAuthorized";
-    public static final String USER = "user";
+    public static final String USER_DTO = "userDto";
     public static final String USER_TYPE = "userType";
 
     public static final String ALERT_ERROR = "alertError";

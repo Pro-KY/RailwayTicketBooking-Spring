@@ -14,23 +14,27 @@
             <div class="col-sm-6 col-md-4">
                 <div class="card border-info">
                     <div class="card-body">
-                        <form name="SignUpForm" method="POST" action="#" th:action="@{/signUp}" th:object="${user}">
+                        <form method="POST" action="#" th:action="@{/signUp}" th:object="${userDto}">
 
                             <div class="form-group">
                                 <label class="ml-3" for="firstName" th:text="#{user.firstName}"></label>
                                 <input type="text" required class="form-control m-1" th:placeholder="#{user.firstName}" id="firstName" th:field="*{firstName}" name="firstName">
+                                <p class="errors-color" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></p>
                             </div>
                             <div class=" form-group">
                                 <label class="ml-3" for="lastName" th:text="#{user.lastName}"></label>
                                 <input type="text" required class="form-control m-1" th:placeholder="#{user.firstName}" id="lastName" th:field="*{lastName}" name="lastName">
+                                <p class="errors-color" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></p>
                             </div>
                             <div class=" form-group">
                                 <label class="ml-3" for="email" th:text="#{user.email}"></label>
                                 <input type="text" required class="form-control m-1" th:placeholder="#{user.email}" id="email" th:field="*{email}" name="email">
+                                <p class="errors-color" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
                             </div>
                             <div class=" form-group">
                                 <label class="ml-3" for="password" th:text="#{user.password}"></label>
                                 <input type="password" required class="form-control m-1" th:placeholder="#{user.password}" th:field="*{password}" id="password" name="password">
+                                <p class="errors-color" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
                             </div>
 
                             <div class="row justify-content-center">

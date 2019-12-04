@@ -11,7 +11,7 @@
 
     <!--MAIN CONTENT-->
     <div class="container float-left ml-3 mt-5 pt-4">
-        <form name="userCredentials" method="POST" th:action ="@{/admin/updateUser}" th:object="${user}">
+        <form name="userCredentials" method="POST" th:action ="@{/admin/updateUser}" th:object="${userDto}">
             <div class="row">
                 <div class="col-md-6">
                     <table class="table table-borderless">

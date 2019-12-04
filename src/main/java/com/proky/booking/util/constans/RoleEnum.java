@@ -1,11 +1,11 @@
-package com.proky.booking.util.constans.enums;
+package com.proky.booking.util.constans;
 
-public enum UserRoleEnum {
+public enum RoleEnum {
     USER("passenger"), GUEST("guest"), ADMIN("administrator"), ANONYMOUS("ROLE_ANONYMOUS");
 
     public final String role;
 
-    UserRoleEnum(String role) {
+    RoleEnum(String role) {
         this.role = role;
     }
 

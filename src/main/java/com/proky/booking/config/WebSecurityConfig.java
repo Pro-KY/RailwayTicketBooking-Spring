@@ -1,6 +1,6 @@
 package com.proky.booking.config;
 
-import com.proky.booking.util.constans.enums.UserRoleEnum;
+import com.proky.booking.util.constans.RoleEnum;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -30,10 +30,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/", "/trains/**", "/invoice").permitAll()
+                    .antMatchers("/", "/trains/**", "/invoice", "/changeLanguage").permitAll()
                     .antMatchers("/login").permitAll()
                     .antMatchers("/signUp").permitAll()
-                    .antMatchers("/admin/**").hasAuthority(UserRoleEnum.ADMIN.role)
+                    .antMatchers("/admin/**").hasAuthority(RoleEnum.ADMIN.role)
                     .antMatchers("/static/**").permitAll()
                 .anyRequest()
                     .authenticated()

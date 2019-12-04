@@ -1,14 +1,14 @@
 package com.proky.booking.config;
 
-import com.proky.booking.util.properties.ViewPath;
+import com.proky.booking.util.MessageSourceWrapper;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
@@ -18,7 +18,11 @@ import java.util.Locale;
 @AllArgsConstructor
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
-    ViewPath viewPath;
+
+    @Bean
+    public MessageSourceWrapper messageSourceWrapper(MessageSource messageSource) {
+        return new MessageSourceWrapper(messageSource);
+    }
 
     @Bean
     public LocaleResolver localeResolver() {
@@ -26,31 +30,21 @@ public class WebConfig implements WebMvcConfigurer {
         sessionLocaleResolver.setDefaultLocale(Locale.US);
         return sessionLocaleResolver;
     }
+
     @Bean
     public LocaleChangeInterceptor localeChangeInterceptor() {
         LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
         localeChangeInterceptor.setParamName("language");
         return localeChangeInterceptor;
     }
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeChangeInterceptor());
     }
 
     @Bean
-    public WebServerFactoryCustomizer<ConfigurableServletWebServerFactory>
-    webServerFactoryCustomizer() {
+    public WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> webServerFactoryCustomizer() {
         return factory -> factory.setContextPath("/booking");
     }
-
-//    public void addViewControllers(ViewControllerRegistry registry) {
-//        registry.addViewController("/").setViewName(viewPath.index);
-//        registry.addViewController("/trains").setViewName(viewPath.index);
-//
-//        registry.addViewController("/admin/manageUser").setViewName(viewPath.manageUser);
-//        registry.addViewController("/admin/users").setViewName(viewPath.allUsers);
-//
-//        registry.addViewController("/user/signInPage").setViewName(viewPath.signIn);
-//        registry.addViewController("/user/signUpPage").setViewName(viewPath.signUp);
-//    }
 }

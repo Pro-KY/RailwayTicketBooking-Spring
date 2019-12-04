@@ -7,9 +7,9 @@ import com.proky.booking.persistence.dao.IUserDao;
 import com.proky.booking.persistence.dao.IUserTypeDao;
 import com.proky.booking.persistence.entities.User;
 import com.proky.booking.persistence.entities.Role;
+import com.proky.booking.util.MessageSourceWrapper;
 import com.proky.booking.util.PasswordEncryptor;
-import com.proky.booking.util.constans.enums.UserRoleEnum;
-import com.proky.booking.util.properties.Message;
+import com.proky.booking.util.constans.RoleEnum;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
@@ -31,19 +31,9 @@ import java.util.stream.Collectors;
 public class UserService {
     private IUserTypeDao userTypeDao;
     private IUserDao userDao;
-    private Message message;
     private ModelMapper modelMapper;
     private PasswordEncryptor passwordEncryptor;
-
-    public boolean isAdministrator(User authenticatedUser) {
-        final Role role = authenticatedUser.getRole();
-
-        final Role adminRole = userTypeDao
-                .findByType(UserRoleEnum.ADMIN.role)
-                .orElseThrow(() -> new ServiceException(message.notFoundEntity));
-
-        return role.equals(adminRole);
-    }
+    private MessageSourceWrapper messageSourceWrapper;
 
     @Transactional
     public void updateUser(UserDto userDto) {
@@ -69,8 +59,8 @@ public class UserService {
     public PageDto findAllRegisteredUsers(PageDto pageDto) {
 
         final Role role = userTypeDao.
-                findByType(UserRoleEnum.USER.role)
-                .orElseThrow(() -> new ServiceException(message.notFoundEntity));
+                findByType(RoleEnum.USER.role)
+                .orElseThrow(() -> new ServiceException(messageSourceWrapper.getMessage("error.notfound")));
 
         final PaginationService paginationService = getProxyPaginationService();
         paginationService.setPageDto(pageDto);
@@ -90,17 +80,12 @@ public class UserService {
     }
 
     public User findUserById(Long id) {
-        return userDao.findById(id).orElseThrow(() -> new ServiceException(message.notFoundEntity));
+        return userDao.findById(id).orElseThrow(() -> new ServiceException(messageSourceWrapper.getMessage("error.notfound")));
     }
 
     public UserDto getUserDtoById(Long id) {
         final User user = findUserById(id);
         return modelMapper.map(user, UserDto.class);
-    }
-
-
-    public void save() {
-
     }
 
     @Lookup
@@ -110,7 +95,7 @@ public class UserService {
 
     @Transactional
     public void deleteUser(Long userId) {
-        final User user = userDao.findById(userId).orElseThrow(() -> new ServiceException(message.notFoundEntity));
+        final User user = userDao.findById(userId).orElseThrow(() -> new ServiceException(messageSourceWrapper.getMessage("error.notfound")));
         userDao.delete(user);
     }
 }

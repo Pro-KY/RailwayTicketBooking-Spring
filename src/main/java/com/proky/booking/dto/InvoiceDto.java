@@ -18,7 +18,6 @@ public class InvoiceDto implements Serializable {
     private String userLastName;
     private Long trainId;
     private String trainType;
-//    private String routeName;
 
     private Long departureStationId;
     private Long arrivalStationId;

@@ -14,8 +14,7 @@ public class LanguageController {
     public String changeLanguage(@RequestParam(defaultValue = "en") String language,
                                  @RequestHeader(value = "referer", required = false) final String referer,
                                  Model model) {
-        log.info("changing language, selected lang is: {}", language);
-        log.info("referer is {}", referer);
+
         model.addAttribute(Attributes.LANGUAGE, language);
         return "redirect:" + referer;
     }

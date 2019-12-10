@@ -11,10 +11,10 @@ $(document).ready(function($) {
     });
 });
 
-$('.example-popover').popover({
-    // trigger: 'focus'
-    trigger: 'hover'
-});
+// $('.example-popover').popover({
+//     // trigger: 'focus'
+//     trigger: 'hover'
+// });
 
 $(function () {
     $('#datetimepicker3').datetimepicker({
@@ -28,6 +28,6 @@ $(function () {
     });
 });
 
-$('.popover-dismiss').popover({
-    trigger: 'focus'
-});
+// $('.popover-dismiss').popover({
+//     trigger: 'focus'
+// });

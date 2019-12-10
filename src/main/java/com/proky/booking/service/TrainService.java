@@ -69,7 +69,6 @@ public class TrainService {
 
     @Lookup
     public PaginationService getProxyPaginationService() {
-        log.info("paginationService called");
         return null;
     }
 

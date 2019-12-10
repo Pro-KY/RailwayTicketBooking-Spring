@@ -11,13 +11,14 @@ public class PaginationService {
     private int currentPageIndex;
     private int allPagesAmount;
 
-    private static final int DEFAULT_PAGE_SIZE = 3; // 5
+    private static final int DEFAULT_PAGE_SIZE = 3;
     private static final int DEFAULT_START_INDEX = 0;
     private static final int DEFAULT_END_INDEX = 4;
 
     private boolean isLeftButtonDisabled;
     private boolean isRightButtonDisabled;
     private PageDto pageDto;
+    private static final Logger log = LogManager.getLogger(PaginationService.class);
 
     public PageDto getpageDto() {
         return pageDto;
@@ -37,14 +38,11 @@ public class PaginationService {
         this.pageSize = (pageSize != null) ? this.pageDto.getPageSize() : DEFAULT_PAGE_SIZE;
     }
 
-    private static final Logger log = LogManager.getLogger(PaginationService.class);
-
     public PaginationService() { }
 
     public PaginationService(PageDto pageDto) {
         this.pageDto = pageDto;
     }
-
 
     public void calculatePageIndex() {
         if (pageDto.getIsNextClicked()) {
@@ -70,7 +68,6 @@ public class PaginationService {
     }
 
     private void calculateEndVisibleIndex() {
-        log.debug("endVisibleIndex before: {}", endVisibleIndex);
         if (allPagesAmount == 0) {
             endVisibleIndex = 0;
         } else if (endVisibleIndex == 0 & allPagesAmount > DEFAULT_END_INDEX) {
@@ -78,7 +75,6 @@ public class PaginationService {
         } else if (allPagesAmount < DEFAULT_END_INDEX) {
             endVisibleIndex = allPagesAmount - 1;
         }
-        log.debug("endVisibleIndex after: {}", endVisibleIndex);
     }
 
     private void handleNextButtonClick() {
@@ -108,10 +104,6 @@ public class PaginationService {
         startVisibleIndex += forward ? 1 : -1;
         endVisibleIndex += forward ? 1 : -1;
         currentPageIndex += forward ? 1 : -1;
-
-        log.debug("shift indexes");
-        log.debug("startVisibleIndex: {}", startVisibleIndex);
-        log.debug("endVisibleIndex: {}", endVisibleIndex);
     }
 
     public int getPageSize() {

@@ -30,7 +30,6 @@ public class UserController {
 
     @GetMapping("/login")
     public String login(String error) {
-        log.info("here in singIn page");
         return (securityService.isNotAnonymousUser()) ? "redirect:/defaultAfterLogin" : viewPath.login;
     }
 
@@ -42,9 +41,7 @@ public class UserController {
 
     @RequestMapping("/defaultAfterLogin")
     public String defaultAfterLogin() {
-        log.info("defaultAfterLogin called");
         final String userRole = securityService.getUserRole();
-        log.info(userRole);
 
         String viewhUrl = userRole.equals(RoleEnum.ADMIN.role) ? viewPath.allUsers : "trains";
         return "redirect:/" + viewhUrl;
@@ -55,7 +52,6 @@ public class UserController {
         log.info(userDto);
 
         if (bindingResult.hasErrors()) {
-            log.info("has errors");
             return viewPath.signUp;
         } else {
             signUpService.signUp(userDto);

@@ -15,11 +15,11 @@ import java.io.Serializable;
 public class TrainBookingDto implements Serializable {
     private String trainId;
     @NotBlank
-    @Length(min = 10, max = 20)
+    @Length(min = 3, max = 20)
     private String firstName;
 
     @NotBlank
-    @Length(min = 10, max = 20)
+    @Length(min = 3, max = 20)
     private String lastName;
 
     @Min(value = 1)

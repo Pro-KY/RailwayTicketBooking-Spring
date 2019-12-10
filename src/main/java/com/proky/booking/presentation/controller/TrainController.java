@@ -26,7 +26,6 @@ import javax.validation.constraints.Size;
 @RequestMapping("/trains")
 @Controller
 @AllArgsConstructor
-//@SessionAttributes({Attributes.PAGE_DTO, Attributes.MODEL})
 public class TrainController {
     private ViewPath viewsPath;
     private TrainService trainService;
@@ -37,11 +36,8 @@ public class TrainController {
         @RequestParam @NotBlank @Length(min = 7, max = 8) String departureTime,
         RedirectAttributes attributes) {
 
-        log.info("POST findTrain is called");
         final PageDto actualPageDto = new PageDto();
-
         final PageDto updatedPageDto = trainService.findTrains(actualPageDto, departureDate, departureTime, goingTo);
-        log.info(updatedPageDto);
 
         attributes.addFlashAttribute(Attributes.PAGE_DTO, updatedPageDto);
         attributes.addFlashAttribute(Attributes.DEPARTURE_DATE, departureDate);
@@ -62,10 +58,8 @@ public class TrainController {
         @RequestParam String departureTime,
         Model model) {
 
-        log.info("find trains GET");
         final PageDto actualPageDto = new PageDto(pageIndex, pageSize, nextPageClick, prevPageClick);
         final PageDto updatedPageDto = trainService.findTrains(actualPageDto, departureDate, departureTime, goingTo);
-        log.info(actualPageDto);
 
         model.addAttribute(Attributes.PAGE_DTO, updatedPageDto);
         model.addAttribute(Attributes.DEPARTURE_DATE, departureDate);

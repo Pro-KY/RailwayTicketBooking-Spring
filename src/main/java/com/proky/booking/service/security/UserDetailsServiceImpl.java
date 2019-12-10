@@ -25,8 +25,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Transactional(readOnly = true)
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        log.info("loadUserByUsername");
-
         final User user = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(email));
         final Set<GrantedAuthority> grantedAuthorities = buildUserAuthority(user);
         return buildUserForAuthentication(user, grantedAuthorities);

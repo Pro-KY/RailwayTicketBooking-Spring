@@ -17,9 +17,6 @@ public interface RouteRepository extends JpaRepository<Route, Long> {
     @Query("select r from Route r where r.departureDate = :departureDate and r.departureTime <= :departureTime and r.arrivalTime <= :departureTime")
     List<Route> findRoutes(@Param("departureDate") Date departureDate, @Param("departureTime") Date departureTime);
 
-//    @Query("select r from Route r where r.departureDate = :departureDate")
-//    List<Route> findRoutes(@Param("departureDate") Date departureDate);
-
     @Query("select r from Route r where r.departureTime <= :departureTime and r.arrivalTime <= :departureTime")
     List<Route> findRoutes(@Param("departureTime") Date departureTime);
 

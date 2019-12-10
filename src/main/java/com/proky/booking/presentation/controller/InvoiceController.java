@@ -25,16 +25,16 @@ public class InvoiceController {
     @PostMapping(value = "/invoice")
     public String calculateInvoice(@ModelAttribute @Validated TrainBookingDto trainBooking, Model model) {
         final InvoiceDto invoiceDto = invoiceService.calculateInvoice(trainBooking);
-        log.info(invoiceDto);
-
         final boolean notAnonymousUser = securityService.isNotAnonymousUser();
 
         if (notAnonymousUser) {
             final SecureUserDto secureUserDto = securityService.getCurrentUser();
             final Long userId = secureUserDto.getUserId();
-            log.info("userId {}", userId);
             invoiceDto.setUserId(userId);
             invoiceService.saveInvoice(invoiceDto);
+        } else {
+            invoiceDto.setUserFirstName(trainBooking.getFirstName());
+            invoiceDto.setUserLastName(trainBooking.getLastName());
         }
 
         model.addAttribute(Attributes.INVOICE_DTO, invoiceDto);

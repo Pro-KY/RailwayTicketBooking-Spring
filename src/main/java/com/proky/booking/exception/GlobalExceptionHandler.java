@@ -24,9 +24,6 @@ public class GlobalExceptionHandler {
     public ModelAndView handleAllExceptions(Throwable ex) {
         ModelAndView modelAndView = new ModelAndView(viewPath.errorRuntime);
 
-        log.info("handle all exceptions");
-        ex.printStackTrace();
-
         final String message = ex.getMessage();
         final String exName = ex.getClass().getName();
         modelAndView.addObject(Attributes.ERROR_EXCEPTION_NAME, exName);

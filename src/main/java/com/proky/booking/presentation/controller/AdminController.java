@@ -33,8 +33,6 @@ public class AdminController {
                                      Model model) {
 
         final PageDto pageDto = new PageDto(pageIndex, pageSize, nextPageClick, prevPageClick);
-        log.info("pageDto in getRegisteredUsers: {}", pageDto);
-
         final PageDto usersPerPage = userService.findAllRegisteredUsers(pageDto);
         model.addAttribute(Attributes.PAGE_DTO, usersPerPage);
 
@@ -44,21 +42,19 @@ public class AdminController {
     @GetMapping("/manageUser")
     public String manageUser(@RequestParam Long userId,  Model model) {
         final UserDto userDto = userService.getUserDtoById(userId);
-        log.info(userDto);
         model.addAttribute(Attributes.USER_DTO, userDto);
         return "/" + viewPath.manageUser;
     }
 
-    @PostMapping("/updateUser")
+    @PutMapping("/updateUser")
     public String updateUser(@ModelAttribute UserDto userDto, RedirectAttributes redirectAttributes) {
-        log.info(userDto);
         userService.updateUser(userDto);
         alertHandler.setAlertData(true, messageSourceWrapper.getMessage("user.updated.msg"), redirectAttributes);
 
         return "redirect:/" + viewPath.allUsers;
     }
 
-    @GetMapping("/deleteUser/{id}")
+    @DeleteMapping("/deleteUser/{id}")
     public String deleteUser(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         alertHandler.setAlertData(true, messageSourceWrapper.getMessage("user.deleted.msg"), redirectAttributes);
         userService.deleteUser(id);

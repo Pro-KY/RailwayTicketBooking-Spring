@@ -15,9 +15,8 @@ import javax.annotation.PreDestroy;
 @SpringBootApplication
 @Log4j2
 @AllArgsConstructor
-public class RailwayTicketBookingApplication extends SpringBootServletInitializer implements CommandLineRunner {
-//public class RailwayTicketBookingApplication implements CommandLineRunner {
-//	BCryptPasswordEncoder bCryptPasswordEncoder;
+public class RailwayTicketBookingApplication extends SpringBootServletInitializer {
+//public class RailwayTicketBookingApplication  {
 
 	public static void main(String[] args) {
 		SpringApplication.run(RailwayTicketBookingApplication.class, args);
@@ -26,11 +25,6 @@ public class RailwayTicketBookingApplication extends SpringBootServletInitialize
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
 		return builder.sources(RailwayTicketBookingApplication.class);
-	}
-
-	@Override
-	public void run(String... args) throws Exception {
-//		System.out.println(bCryptPasswordEncoder.encode("pass_5"));
 	}
 }
 

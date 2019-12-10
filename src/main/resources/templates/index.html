@@ -89,7 +89,7 @@
                         <tr class="table-row clickable-row" th:attr="data-href=@{/trains/(trainId=${train.trainId})}" th:each="train : ${pageDto.pageList}">
                             <td th:text="${train.trainId} + ' ' + ${train.trainType}"> </td>
                             <td>
-                                <button type="button" class="btn btn-link example-popover p-0 routeName" data-trigger="hover" data-toggle="popover" th:attr="data-content=${stations2}, title=#{table.header.route}" th:text="${#messages.msg(#strings.concat('station.', train.departureStationId))} + '-' + ${#messages.msg(#strings.concat('station.', train.arrivalStationId))}"></button>
+                                <button type="button" class="btn btn-link example-popover p-0 routeName" th:attr="data-content=${stations2}, title=#{table.header.route}" th:text="${#messages.msg(#strings.concat('station.', train.departureStationId))} + '-' + ${#messages.msg(#strings.concat('station.', train.arrivalStationId))}"></button>
                                 <p class="m-0 routes">
                                     <th:block th:each="station : ${train.stations}">
                                         <span th:text="${#messages.msg(#strings.concat('station.', station.stationId))}"></span>
